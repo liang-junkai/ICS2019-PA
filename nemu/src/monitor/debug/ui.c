@@ -49,6 +49,27 @@ static int cmd_si(char *args){
 }
 return 0; 
 }
+extern void isa_reg_display();
+static int cmd_info(char *args){
+	char *arg=strtok(NULL," ");
+	if(arg==NULL){
+		printf("Use r or w as a info!");
+		return 0;
+}
+	else if(strcmp(arg,"r")==0){
+		isa_reg_display();
+		return 0;
+}
+	else if(strcmp(arg,"w")==0){
+		printf("we will defint info[r] later");
+		return 0;
+}
+	else{
+		printf("Please use info [r][w] correctly! for more info, input help info");
+		return 0;
+}
+}
+
 extern int mulptily_ljk(int i,int j);
 int number_ljk(char *arg){
   int result=0;
@@ -74,8 +95,9 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-  {"si","Continue the progrom with a certain step you have given: si [N]",cmd_si}
+  {"si","Continue the progrom with a certain step you have given: si [N]",cmd_si},
   /* TODO: Add more commands */
+  {"info","info [r][w], use r to type the values of the 32_bytes registers, use w know the info of the watchpoint",cmd_info}
 
 };
 
