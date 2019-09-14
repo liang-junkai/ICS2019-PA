@@ -44,14 +44,14 @@ void isa_reg_display() {
 	int i;
 	for(i=R_EAX;i<=R_EDI;i++){
 		switch(i){
-			case R_EAX:printf("eax :/t/t/t");break;
-			case R_ECX:printf("ecx :/t/t/t");break;
-			case R_EDX:printf("edx :/t/t/t");break;
-			case R_EBX:printf("ebx :/t/t/t");break;
-			case R_ESP:printf("esp :/t/t/t");break;
-			case R_EBP:printf("ebp :/t/t/t");break;
-			case R_ESI:printf("esi :/t/t/t");break;
-			case R_EDI:printf("edi :/t/t/t");break;
+			case R_EAX:printf("eax :\t\t\t");break;
+			case R_ECX:printf("ecx :\t\t\t");break;
+			case R_EDX:printf("edx :\t\t\t");break;
+			case R_EBX:printf("ebx :\t\t\t");break;
+			case R_ESP:printf("esp :\t\t\t");break;
+			case R_EBP:printf("ebp :\t\t\t");break;
+			case R_ESI:printf("esi :\t\t\t");break;
+			case R_EDI:printf("edi :\t\t\t");break;
 }
 		printf("0x%-10x",reg_l(i));
 		printf("%-10d\n",reg_l(i));

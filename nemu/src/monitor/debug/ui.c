@@ -61,7 +61,7 @@ static int cmd_info(char *args){
 		return 0;
 }
 	else if(strcmp(arg,"w")==0){
-		printf("we will defint info[r] later");
+		printf("we will define info[w] later\n");
 		return 0;
 }
 	else{
