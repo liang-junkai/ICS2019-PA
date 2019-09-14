@@ -65,7 +65,7 @@ static int cmd_info(char *args){
 		return 0;
 }
 	else{
-		printf("Please use info [r][w] correctly! for more info, input help info");
+		printf("Please use info [r][w] correctly! for more info, input help info\n");
 		return 0;
 }
 }
