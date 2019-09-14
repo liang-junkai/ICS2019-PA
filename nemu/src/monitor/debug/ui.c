@@ -37,9 +37,33 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_help(char *args);
-
+extern int number_ljk(char *arg);
 static int cmd_si(char *args){
-  return 0;
+  char* arg=strtok(NULL," ");
+  if(arg==NULL){
+	cpu_exec(1);
+}
+  else{
+	int count_ljk=number_ljk(arg);
+	cpu_exec(count_ljk);
+}
+return 0; 
+}
+extern int mulptily_ljk(int i,int j);
+int number_ljk(char *arg){
+  int result=0;
+  int i=0;
+  for(i=0;i<strlen(arg);i++){
+	result+=(arg[i]-'0')*mulptily_ljk(10,strlen(arg)-i-1);
+}
+  return result;
+}
+int mulptily_ljk(int i,int j){
+	int k=0,result=1;
+	for(k=0;k<j;k++){
+		result*=i;
+}
+return result;
 }
 
 static struct {
@@ -50,7 +74,7 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-  {"si","Continue the progrom with a certain step you have given",cmd_si}
+  {"si","Continue the progrom with a certain step you have given: si [N]",cmd_si}
   /* TODO: Add more commands */
 
 };
