@@ -104,17 +104,23 @@ extern uint32_t paddr_read(paddr_t addr,int len);
 static int cmd_x(char *args){
   char *arg=strtok(NULL," ");
   int len_ljk=number_ljk(arg,10);
-  printf("%d\n",len_ljk);
   arg=strtok(NULL," ");
   int i=0;
   for(i=0;i<strlen(arg)-2;i++){
   arg[i]=arg[i+2];
 }
   arg[i]='\0';
-  printf("%s  %ld\n",arg,strlen(arg));
   paddr_t addr=number_ljk(arg,16);
-  printf("%x\n",addr);
-  printf("0x%s:\t%x\n",arg,paddr_read(addr,len_ljk));
+  printf("0x%s:\n",arg);
+  for(i=1;i<=4*len_ljk;i++){
+	if(i%4!=0){
+		printf("%x ",paddr_read(addr+i,1));
+}
+	else{
+		printf("%x\n",paddr_read(addr+i,1));
+}
+}
+ // printf("0x%s:\t%x\n",arg,paddr_read(addr,len_ljk));
 return 0;
 }
 
