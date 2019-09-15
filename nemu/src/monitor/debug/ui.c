@@ -75,7 +75,7 @@ int number_ljk(char *arg,int dec){
   int result=0;
   int i=0;
   for(i=0;i<strlen(arg);i++){
-	if(arg[i]>='0'&&arg[i]<=9){
+	if(arg[i]>='0'&&arg[i]<='9'){
 	result+=(arg[i]-'0')*mulptily_ljk(dec,strlen(arg)-i-1);
 }
 	else if(arg[i]>='a'&&arg[i]<='z'){
