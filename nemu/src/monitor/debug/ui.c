@@ -117,7 +117,11 @@ static int cmd_x(char *args){
 		printf("%-4x ",paddr_read(addr+i-1,1));
 }
 	else{
-		printf("%-4x\n",paddr_read(addr+i-1,1));
+		printf("%-4x ",paddr_read(addr+i-1,1));
+		printf("\t");
+		int j;
+		for(j=i-3;j<=i;j++)
+			printf("%-4d ",paddr_read(addr+j-1,1));
 		if(i==4*len_ljk){
 			printf("\n");
 }
