@@ -87,6 +87,21 @@ int mulptily_ljk(int i,int j){
 return result;
 }
 
+extern uint32_t paddr_read(paddr_t addr,int len);
+static int cmd_x(char *args){
+  char *arg=strtok(NULL," ");
+  int len_ljk=number_ljk(arg);
+  arg=strtok(NULL," ");
+  int i=0;
+  for(i=0;i<strlen(arg)-2;i++){
+  arg[i]=arg[i+2];
+}
+  arg[i]='\0';
+  paddr_t addr=number_ljk(arg);
+  printf("0x%s:\t%x",arg,paddr_read(addr,len_ljk));
+return 0;
+}
+
 static struct {
   char *name;
   char *description;
@@ -97,8 +112,8 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   {"si","Continue the progrom with a certain step you have given: si [N]",cmd_si},
   /* TODO: Add more commands */
-  {"info","info [r][w], use r to type the values of the 32_bytes registers, use w know the info of the watchpoint",cmd_info}
-
+  {"info","info [r][w], use r to type the values of the 32_bytes registers, use w know the info of the watchpoint",cmd_info},
+  {"x","Use x [N] [addr] to know the value in a certain address",cmd_x}
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
