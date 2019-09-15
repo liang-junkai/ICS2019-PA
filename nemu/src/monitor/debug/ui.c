@@ -98,7 +98,7 @@ static int cmd_x(char *args){
   arg[i]=arg[i+2];
 }
   arg[i]='\0';
-  printf("%s\n",arg);
+  printf("%s  %ld\n",arg,strlen(arg));
   paddr_t addr=number_ljk(arg);
   printf("%x\n",addr);
   printf("0x%s:\t%x\n",arg,paddr_read(addr,len_ljk));
