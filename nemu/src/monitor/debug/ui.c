@@ -37,14 +37,14 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_help(char *args);
-extern int number_ljk(char *arg);
+extern int number_ljk(char *arg,int dec);
 static int cmd_si(char *args){
   char* arg=strtok(NULL," ");
   if(arg==NULL){
 	cpu_exec(1);
 }
   else{
-	int count_ljk=number_ljk(arg);
+	int count_ljk=number_ljk(arg,10);
 	cpu_exec(count_ljk);
 }
 return 0; 
@@ -71,11 +71,24 @@ static int cmd_info(char *args){
 }
 
 extern int mulptily_ljk(int i,int j);
-int number_ljk(char *arg){
+int number_ljk(char *arg,int dec){
   int result=0;
   int i=0;
   for(i=0;i<strlen(arg);i++){
-	result+=(arg[i]-'0')*mulptily_ljk(10,strlen(arg)-i-1);
+	if(arg[i]>='0'&&arg[i]<=9){
+	result+=(arg[i]-'0')*mulptily_ljk(dec,strlen(arg)-i-1);
+}
+	else if(arg[i]>='a'&&arg[i]<='z'){
+		if(arg[i]-'0'+10>=dec){
+			printf("wrong input\n");
+			return -1;
+}
+	result+=(arg[i]-'a'+10)*mulptily_ljk(dec,strlen(arg)-i-1);
+}
+	else{
+		printf("wrong number input");
+		return -1;
+}
 }
   return result;
 }
@@ -90,7 +103,7 @@ return result;
 extern uint32_t paddr_read(paddr_t addr,int len);
 static int cmd_x(char *args){
   char *arg=strtok(NULL," ");
-  int len_ljk=number_ljk(arg);
+  int len_ljk=number_ljk(arg,10);
   printf("%d\n",len_ljk);
   arg=strtok(NULL," ");
   int i=0;
@@ -99,7 +112,7 @@ static int cmd_x(char *args){
 }
   arg[i]='\0';
   printf("%s  %ld\n",arg,strlen(arg));
-  paddr_t addr=number_ljk(arg);
+  paddr_t addr=number_ljk(arg,16);
   printf("%x\n",addr);
   printf("0x%s:\t%x\n",arg,paddr_read(addr,len_ljk));
 return 0;
