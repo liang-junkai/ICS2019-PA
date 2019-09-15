@@ -85,10 +85,10 @@ int number_ljk(char *arg,int dec){
 }
 	result+=(arg[i]-'a'+10)*mulptily_ljk(dec,strlen(arg)-i-1);
 }
-	else{
+/*	else{
 		printf("wrong number input");
 		return -1;
-}
+}*/
 }
   return result;
 }
