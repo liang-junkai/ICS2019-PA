@@ -111,13 +111,14 @@ static int cmd_x(char *args){
 }
   arg[i]='\0';
   paddr_t addr=number_ljk(arg,16);
-  printf("0x%s:\n",arg);
+  printf("0x%s:\t",arg);
   for(i=1;i<=4*len_ljk;i++){
 	if(i%4!=0){
 		printf("%-4x ",paddr_read(addr+i-1,1));
 }
 	else{
 		printf("%-4x\n",paddr_read(addr+i-1,1));
+		printf("0x%x:\t",addr+i);
 }
 }
  // printf("0x%s:\t%x\n",arg,paddr_read(addr,len_ljk));
