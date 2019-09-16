@@ -8,7 +8,7 @@
 
 enum {
   TK_NOTYPE = 256, TK_PLUS,TK_EQ,TK_SUB,
-  TK_DIV,TK_LBRA,TK_RBRA,TK_NUM,TK_MUL
+  TK_DIV,TK_LBRA,TK_RBRA,TK_NUM,TK_MUL,TK_NONE
  /* TODO: Add more token types */ 
 };
 
@@ -61,6 +61,15 @@ typedef struct token {
 static Token tokens[32] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
 
+
+void init_tokens_ljk(){
+  int i;
+  for(i=0;i<=nr_token;i++){
+	tokens[i].type=TK_NONE;
+	tokens[i].str[0]='\0';
+}
+}
+
 static bool make_token(char *e) {
   int position = 0;
   int i;
@@ -89,7 +98,7 @@ if(tokens[nr_token].type!=TK_NOTYPE){
 printf("ljk::%s\n",tokens[nr_token].str);
 //printf("ljk::%s\n",tokens[nr_token].str);
 	nr_token++;}
-else{position--;}
+else{tokens[nr_token].type=TK_NONE;}
         /* TODO: Now a new token is recognized with rules[i]. Add codes
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
