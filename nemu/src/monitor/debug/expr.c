@@ -125,6 +125,7 @@ printf("i::%d  NR_REGEX  %ld",i,NR_REGEX);
 uint32_t expr(char *e, bool *success) {
   if (make_token(e)==false) {
     *success = false;
+    init_tokens_ljk();
     return 0;
   }
   int i=0;
