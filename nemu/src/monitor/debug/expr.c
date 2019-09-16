@@ -29,7 +29,8 @@ static struct rule {
   {"/",'/'},//chu
   {"\\(",'('},
   {"\\)",')'},
-  {"[1-9]*",'0'}
+  {"[1-9]*",'0'},
+  {"\\*",'*'}
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -120,6 +121,5 @@ uint32_t expr(char *e, bool *success) {
   }
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
-  nr_token=0;  
   return 0;
 }
