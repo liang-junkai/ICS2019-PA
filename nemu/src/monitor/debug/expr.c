@@ -24,7 +24,8 @@ static struct rule {
 
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
-  {"==", TK_EQ}         // equal
+  {"==", TK_EQ},
+  {"-",'-'}         // equal
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -109,9 +110,12 @@ uint32_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-  printf("%s\n",tokens[0].str);
+  int i=0;
+  for(i=0;i<=nr_token;i++){
+  printf("%s\n",tokens[i].str);
+  }
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
-
+  nr_token=0;  
   return 0;
 }
