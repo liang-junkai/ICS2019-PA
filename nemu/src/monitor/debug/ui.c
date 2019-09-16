@@ -8,7 +8,6 @@
 #include <readline/history.h>
 
 #include"expr.c"
-
 void cpu_exec(uint64_t);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
