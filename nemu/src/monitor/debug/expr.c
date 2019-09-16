@@ -64,13 +64,13 @@ static bool make_token(char *e) {
   nr_token = 0;
 
   while (e[position] != '\0') {
-     printf("ljk::%s\n",e);
+//     printf("ljk::%s\n",e);
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
-printf("ljk::%d\n",position);
+//printf("ljk::%d\n",position);
         Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
             i, rules[i].regex, position, substr_len, substr_len, substr_start);
         position += substr_len;
@@ -80,7 +80,7 @@ printf("ljk::%d\n",position);
 		tokens[nr_token].str[ljk]=e[position-substr_len+ljk];
 	}
 	tokens[nr_token].str[substr_len]='\0';
-printf("ljk::%s\n",tokens[nr_token].str);
+//printf("ljk::%s\n",tokens[nr_token].str);
 	nr_token++;
         /* TODO: Now a new token is recognized with rules[i]. Add codes
          * to record the token in the array `tokens'. For certain types
