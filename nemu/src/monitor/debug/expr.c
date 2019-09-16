@@ -115,7 +115,8 @@ else{tokens[nr_token].type=TK_NONE;}
 printf("i::%d  NR_REGEX  %ld\n",i,NR_REGEX); 
    if (i == NR_REGEX) {
       printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
-      return false;
+        assert(i!=NR_REGEX);
+	return false;
     }
   }
 
@@ -123,7 +124,6 @@ printf("i::%d  NR_REGEX  %ld\n",i,NR_REGEX);
 }
 
 uint32_t expr(char *e, bool *success) {
-  printf("ljkjiayou\n");
   if (make_token(e)==false) {
     *success = false;
     init_tokens_ljk();
