@@ -145,10 +145,10 @@ static int cmd_p(char *args){
 	arg[i]='\0';
   }
   else{
-	printf("Please Use p [expr] correctly!");
+	printf("Please Use p [expr] correctly!\n");
 }
-
- bool *success=false;
+bool success1=false;
+ bool *success=&success1;
  uint32_t result=expr(arg,success);
  printf("%d\n",result);
  return 0;
