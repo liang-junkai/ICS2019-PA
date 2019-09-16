@@ -74,9 +74,9 @@ static bool make_token(char *e) {
   int position = 0;
   int i;
   regmatch_t pmatch;
-printf("ljk::e%s\n ",e);
+//printf("ljk::e%s\n ",e);
   nr_token = 0;
-printf("ljk_no_token%d\n",nr_token);
+//printf("ljk_no_token%d\n",nr_token);
   while (e[position] != '\0') {
 //     printf("ljk::%s\n",e);
     /* Try all rules one by one. */
@@ -88,7 +88,7 @@ printf("ljk_no_token%d\n",nr_token);
         Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
             i, rules[i].regex, position, substr_len, substr_len, substr_start);
         position += substr_len;
-printf("ljk_position::%d\n",position);
+//printf("ljk_position::%d\n",position);
 	tokens[nr_token].type=rules[i].token_type;
 if(tokens[nr_token].type!=TK_NOTYPE){
 	int ljk=0;
@@ -134,5 +134,5 @@ uint32_t expr(char *e, bool *success) {
   init_tokens_ljk();
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
-  return 0;
+  return 1;
 }
