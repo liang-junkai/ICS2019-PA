@@ -28,7 +28,8 @@ static struct rule {
   {"-",'-'},//sub
   {"/",'/'},//chu
   {"\\(",'('},
-  {"\\)",')'}
+  {"\\)",')'},
+  {"[1-9]*",'0'}
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
