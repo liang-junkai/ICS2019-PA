@@ -7,6 +7,8 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+#include"expr.c"
+
 void cpu_exec(uint64_t);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
@@ -134,6 +136,15 @@ static int cmd_x(char *args){
  // printf("0x%s:\t%x\n",arg,paddr_read(addr,len_ljk));
 return 0;
 }
+//extern static int make_token(char *e);
+static int cmd_p(char *args){
+  char *arg = strtok(NULL," ");
+  if(make_token(arg)==true){	
+	printf("%s\n",tokens[0].str);
+  }
+  return 0;
+}
+
 
 static struct {
   char *name;
@@ -146,10 +157,13 @@ static struct {
   {"si","Continue the progrom with a certain step you have given: si [N]",cmd_si},
   /* TODO: Add more commands */
   {"info","info [r][w], use r to type the values of the 32_bytes registers, use w know the info of the watchpoint",cmd_info},
-  {"x","Use x [N] [addr] to know the value in a certain address",cmd_x}
+  {"x","Use x [N] [addr] to know the value in a certain address",cmd_x},
+  {"p","Use p [expr] to caculate the expr you have given",cmd_p}
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
+
+
 
 static int cmd_help(char *args) {
   /* extract the first argument */
