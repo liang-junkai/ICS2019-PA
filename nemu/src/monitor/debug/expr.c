@@ -72,7 +72,7 @@ void init_tokens_ljk(){
 
 static bool make_token(char *e) {
   int position = 0;
-  int i;
+  int i=0;
   regmatch_t pmatch;
 //printf("ljk::e%s\n ",e);
   nr_token = 0;
@@ -112,7 +112,6 @@ else{tokens[nr_token].type=TK_NONE;}
         break;
       }
     }
-
     if (i == NR_REGEX) {
       printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
       return false;
