@@ -96,7 +96,7 @@ if(tokens[nr_token].type!=TK_NOTYPE){
 		tokens[nr_token].str[ljk]=e[position-substr_len+ljk];
 	}
 	tokens[nr_token].str[substr_len]='\0';
-printf("ljk_str::%s\n",tokens[nr_token].str);
+//printf("ljk_str::%s\n",tokens[nr_token].str);
 //printf("ljk::%s\n",tokens[nr_token].str);
 	nr_token++;}
 else{tokens[nr_token].type=TK_NONE;}
@@ -112,7 +112,8 @@ else{tokens[nr_token].type=TK_NONE;}
         break;
       }
     }
-    if (i == NR_REGEX) {
+printf("i::%d  NR_REGEX  %ld",i,NR_REGEX); 
+   if (i == NR_REGEX) {
       printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
       return false;
     }
