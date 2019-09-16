@@ -89,6 +89,7 @@ if(tokens[nr_token].type!=TK_NOTYPE){
 printf("ljk::%s\n",tokens[nr_token].str);
 //printf("ljk::%s\n",tokens[nr_token].str);
 	nr_token++;}
+else{position--;}
         /* TODO: Now a new token is recognized with rules[i]. Add codes
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
