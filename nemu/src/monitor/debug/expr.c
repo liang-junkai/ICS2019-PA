@@ -123,7 +123,7 @@ else{tokens[nr_token].type=TK_NONE;}
 }
 
 uint32_t expr(char *e, bool *success) {
-  if (!make_token(e)) {
+  if (make_token(e)==false) {
     *success = false;
     return 0;
   }
