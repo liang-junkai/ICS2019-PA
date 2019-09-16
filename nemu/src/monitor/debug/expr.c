@@ -86,6 +86,7 @@ if(tokens[nr_token].type!=TK_NOTYPE){
 		tokens[nr_token].str[ljk]=e[position-substr_len+ljk];
 	}
 	tokens[nr_token].str[substr_len]='\0';
+printf("ljk::%s\n",tokens[nr_token].str);
 //printf("ljk::%s\n",tokens[nr_token].str);
 	nr_token++;}
         /* TODO: Now a new token is recognized with rules[i]. Add codes
