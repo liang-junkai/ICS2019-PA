@@ -32,7 +32,7 @@ static struct rule {
 static regex_t re[NR_REGEX] = {};
 
 /* Rules are used for many times.
- * Therefore we compile them only once before any usage.
+ * Theeefore we compile them only once before any usage.
  */
 void init_regex() {
   int i;
@@ -73,14 +73,20 @@ static bool make_token(char *e) {
         Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
             i, rules[i].regex, position, substr_len, substr_len, substr_start);
         position += substr_len;
-
+	tokens[nr_token].type=rules[i].token_type;
+	int ljk;
+	for(ljk=0;ljk<substr_len;ljk++){
+		tokens[nr_token].str[ljk]=e[position-substr_len+ljk];
+	}
+	tokens[nr_token].str[substr_len]='\0';
+	nr_token++;
         /* TODO: Now a new token is recognized with rules[i]. Add codes
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
 
         switch (rules[i].token_type) {
-          default: TODO();
+         default: TODO();
         }
 
         break;
@@ -101,9 +107,9 @@ uint32_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-
+  printf("%s\n",tokens[0].str);
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
+  //TODO();
 
   return 0;
 }

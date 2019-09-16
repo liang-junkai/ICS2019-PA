@@ -7,7 +7,6 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-#include"expr.c"
 void cpu_exec(uint64_t);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
@@ -135,12 +134,12 @@ static int cmd_x(char *args){
  // printf("0x%s:\t%x\n",arg,paddr_read(addr,len_ljk));
 return 0;
 }
-//extern static int make_token(char *e);
+
 static int cmd_p(char *args){
   char *arg = strtok(NULL," ");
-  if(make_token(arg)==true){	
-	printf("%s\n",tokens[0].str);
-  }
+  bool *success=false;
+  uint32_t result=expr(arg,success);
+  printf("%d\n",result);
   return 0;
 }
 
