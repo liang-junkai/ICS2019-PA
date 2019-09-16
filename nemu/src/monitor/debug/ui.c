@@ -136,11 +136,22 @@ return 0;
 }
 
 static int cmd_p(char *args){
-  char *arg = strtok(NULL," ");
-  bool *success=false;
-  uint32_t result=expr(arg,success);
-  printf("%d\n",result);
-  return 0;
+  char *arg=args;
+  if(arg[0]=='p'&&arg[1]==' '){
+	int i=0;
+	for(i=0;i<strlen(arg)-3;i++){
+        	arg[i]=arg[i+2];
+        }
+	arg[i]='\0';
+  }
+  else{
+	printf("Please Use p [expr] correctly!");
+}
+
+ bool *success=false;
+ uint32_t result=expr(arg,success);
+ printf("%d\n",result);
+ return 0;
 }
 
 
