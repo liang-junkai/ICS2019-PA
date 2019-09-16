@@ -131,6 +131,7 @@ uint32_t expr(char *e, bool *success) {
   for(i=0;i<=nr_token;i++){
   printf("%s\n",tokens[i].str);
   }
+  init_tokens_ljk();
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
   return 0;
