@@ -151,7 +151,7 @@ bool success1=false;
  bool *success;
  success=&success1;
  uint32_t result=expr(arg,success);
- printf("%d\n",result);
+ printf("%u\n",result);
  return 0;
 }
 
