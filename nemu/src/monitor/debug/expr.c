@@ -74,6 +74,7 @@ bool check_parentheses(uint32_t p,uint32_t q){
   if(q<p)return false;
   if(strcmp(tokens[p].str,"(")!=0||strcmp(tokens[q].str,")")!=0){
 	return false;
+	printf("1\n");
   }
   int position[32]={0};
   int i=0;
@@ -85,11 +86,11 @@ bool check_parentheses(uint32_t p,uint32_t q){
   for(i=0;i<=q-p;i++){
 	count+=position[i];
   }
-  if(count!=0)return false;
+  if(count!=0){return false;printf("2\n");}
   for(i=0;i<=q-p;i++){
 	count+=position[i];
 	if(count==0&&i!=q-p)
-		return false;  
+		{return false;printf("3\n"); } 
   }
   return true;
 }
