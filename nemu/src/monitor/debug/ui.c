@@ -146,6 +146,7 @@ static int cmd_p(char *args){
   }
   else{
 	printf("Please Use p [expr] correctly!\n");
+	return 0;
 }
 bool success1=false;
  bool *success;
