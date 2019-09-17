@@ -72,7 +72,7 @@ void init_tokens_ljk(){
 
 bool check_parentheses(uint32_t p,uint32_t q){
   if(q<p)return false;
-  printf("p: %s  q:  %s\n",tokens[p].str,tokens[q].str);
+//  printf("p: %s  q:  %s\n",tokens[p].str,tokens[q].str);
   if(strcmp(tokens[p].str,"(")!=0||strcmp(tokens[q].str,")")!=0){
 	printf("1\n");
 	return false;
