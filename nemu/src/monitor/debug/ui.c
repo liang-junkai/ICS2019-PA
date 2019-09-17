@@ -137,17 +137,9 @@ return 0;
 
 static int cmd_p(char *args){
   char *arg=args;
-  if(arg[0]==' '){
-	int i=0;
-	for(i=0;i<strlen(arg)-2;i++){
-        	arg[i]=arg[i+1];
-        }
-	arg[i]='\0';
-  }
-  else{
-	printf("Please Use p [expr] correctly!\n");
-	return 0;
-}
+  printf("%s\n",arg);
+//	printf("Please Use p [expr] correctly!\n");
+//	return 0;
 bool success1=false;
  bool *success;
  success=&success1;
