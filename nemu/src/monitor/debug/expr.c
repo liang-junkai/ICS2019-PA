@@ -131,7 +131,7 @@ printf("\n");
 	int j=0,m=0;
 	for(i=0;i<q-p;i++){
 	for(j=i+1;j<=q-p;j++){
-		if(check_parentheses(i,j)==true){
+		if(check_parentheses(p+i,p+j)==true){
 			for(m=i;m<=j;m++)position[m]=0;
 			}	
 		}
