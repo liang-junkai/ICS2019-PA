@@ -159,7 +159,7 @@ uint32_t expr(char *e, bool *success) {
   int i=0;
   for(i=0;i<nr_token;i++)
 	printf("%s\n",tokens[i].str);
-  printf("ljk::checkout  %d\n",check_parentheses(0,nr_token));
+  printf("ljk::checkout  %d\n",check_parentheses(0,nr_token-1));
   init_tokens_ljk();
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
