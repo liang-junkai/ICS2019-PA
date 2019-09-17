@@ -96,6 +96,61 @@ bool check_parentheses(uint32_t p,uint32_t q){
   }
   return true;
 }
+extern int number_ljk(char*arg,int dec);
+uint32_t eval(int p,int q){
+  if(p>q){
+	printf("bad expression\n");
+	return -1;
+}
+  else if(p==q){
+  if(tokens[p].type==TK_NUM){
+	return number_ljk(tokens[p].str,10);}
+  else {printf("bad expression2\n");return 0;}
+}
+  else if(check_parentheses(p,q)==true){
+  	p++;
+  	q--;
+  	return eval(p,q);
+}
+  else{
+	int position[32]={0};
+	int i=0;
+	for(i=0;i<=q-p;i++){
+		switch(tokens[p+i].type){
+			case TK_PLUS:position[i]=1;break;
+			case TK_SUB:position[i]=1;break;
+			case TK_MUL:position[i]=2;break;
+			case TK_DIV:position[i]=2;break;
+		}
+	}
+	int j=0,m=0;
+	for(i=0;i<q-p;i++){
+	for(j=i+1;j<=q-p;j++){
+		if(check_parentheses(i,j)==true){
+			for(m=i;m<=j;m++)position[m]=0;
+			}	
+		}
+	}
+        int min=3;
+	for(i=0;i<=q-p;i++){
+		if(position[i]!=0&&min>position[i])min=position[i];
+	}
+	if(min==0){printf("bad expression3\n");return 0;}
+	for(i=q-p;i>=0;i--){
+		if(position[i]==min){
+			switch(tokens[p+i].type){
+				case TK_PLUS:return eval(p,p+i-1)+eval(p+i+1,q);
+				case TK_SUB:return eval(p,p+i-1)-eval(p+i+1,q);
+				case TK_MUL:return eval(p,p+i-1)*eval(p+i+1,q);
+				case TK_DIV:return eval(p,p+i-1)/eval(p+i+1,q);
+			}
+		}
+	}	
+    }
+  printf("bad expression4\n");
+  return 0;
+}
+
 
 
 static bool make_token(char *e) {
@@ -156,12 +211,12 @@ uint32_t expr(char *e, bool *success) {
     init_tokens_ljk();
     return 0;
   }
-  int i=0;
-  for(i=0;i<nr_token;i++)
-	printf("%s\n",tokens[i].str);
-  printf("ljk::checkout  %d\n",check_parentheses(0,nr_token-1));
+  *success=true;
+  return eval(0,nr_token-1);
+ // for(i=0;i<nr_token;i++)
+//	printf("%s\n",tokens[i].str);
+//  printf("ljk::checkout  %d\n",check_parentheses(0,nr_token-1));
   init_tokens_ljk();
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
-  return 1;
 }
