@@ -73,8 +73,9 @@ void init_tokens_ljk(){
 bool check_parentheses(uint32_t p,uint32_t q){
   if(q<p)return false;
   if(strcmp(tokens[p].str,"(")!=0||strcmp(tokens[q].str,")")!=0){
-	return false;
 	printf("1\n");
+	return false;
+
   }
   int position[32]={0};
   int i=0;
@@ -86,11 +87,11 @@ bool check_parentheses(uint32_t p,uint32_t q){
   for(i=0;i<=q-p;i++){
 	count+=position[i];
   }
-  if(count!=0){return false;printf("2\n");}
+  if(count!=0){printf("2\n");return false;}
   for(i=0;i<=q-p;i++){
 	count+=position[i];
 	if(count==0&&i!=q-p)
-		{return false;printf("3\n"); } 
+		{printf("3\n"); return false;} 
   }
   return true;
 }
