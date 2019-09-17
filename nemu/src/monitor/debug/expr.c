@@ -115,7 +115,6 @@ else{tokens[nr_token].type=TK_NONE;}
 printf("i::%d  NR_REGEX  %ld\n",i,NR_REGEX); 
    if (i == NR_REGEX) {
       printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
-        assert(i!=NR_REGEX);
 	return false;
     }
   }
