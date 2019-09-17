@@ -71,6 +71,7 @@ void init_tokens_ljk(){
 }
 
 bool check_parentheses(uint32_t p,uint32_t q){
+  if(q<p)return false;
   if(strcmp(tokens[p].str,"(")!=0||strcmp(tokens[q].str,")")!=0){
 	return false;
   }
@@ -136,7 +137,7 @@ else{tokens[nr_token].type=TK_NONE;}
         break;
       }
     }
-printf("i::%d  NR_REGEX  %ld\n",i,NR_REGEX); 
+//printf("i::%d  NR_REGEX  %ld\n",i,NR_REGEX); 
    if (i == NR_REGEX) {
       printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
 	return false;
@@ -152,7 +153,7 @@ uint32_t expr(char *e, bool *success) {
     init_tokens_ljk();
     return 0;
   }
-  printf("ljk::checkout%d\n",check_parentheses(0,nr_token));
+  printf("ljk::checkout  %d\n",check_parentheses(0,nr_token));
   init_tokens_ljk();
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
