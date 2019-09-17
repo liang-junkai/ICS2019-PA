@@ -137,11 +137,10 @@ return 0;
 
 static int cmd_p(char *args){
   char *arg=args;
-printf("ljk::arg  %s\n",arg);
-  if(arg[0]=='p'&&arg[1]==' '){
+  if(arg[0]==' '){
 	int i=0;
-	for(i=0;i<strlen(arg)-3;i++){
-        	arg[i]=arg[i+2];
+	for(i=0;i<strlen(arg)-2;i++){
+        	arg[i]=arg[i+1];
         }
 	arg[i]='\0';
   }
