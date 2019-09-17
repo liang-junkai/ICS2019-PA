@@ -70,6 +70,30 @@ void init_tokens_ljk(){
 }
 }
 
+bool check_parentheses(uint32_t p,uint32_t q){
+  if(strcmp(tokens[p].str,"(")!=0||strcmp(tokens[q].str,")")!=0){
+	return false;
+  }
+  int position[32]={0};
+  int i=0;
+  for(i=0;i<=q-p;i++){
+	if(strcmp(tokens[p+i].str,"(")==0)position[i]=-1;
+	if(strcmp(tokens[p+i].str,")")==0)position[i]=1;
+  }
+  int count=0;
+  for(i=0;i<=q-p;i++){
+	count+=position[i];
+  }
+  if(count!=0)return false;
+  for(i=0;i<=q-p;i++){
+	count+=position[i];
+	if(count==0&&i!=q-p)
+		return false;  
+  }
+  return true;
+}
+
+
 static bool make_token(char *e) {
   int position = 0;
   int i=0;
@@ -128,10 +152,7 @@ uint32_t expr(char *e, bool *success) {
     init_tokens_ljk();
     return 0;
   }
-  int i=0;
-  for(i=0;i<=nr_token;i++){
-  printf("%s\n",tokens[i].str);
-  }
+  printf("ljk::checkout%d\n",check_parentheses(0,nr_token));
   init_tokens_ljk();
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
