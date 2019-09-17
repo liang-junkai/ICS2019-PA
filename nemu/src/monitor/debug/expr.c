@@ -170,11 +170,11 @@ static bool make_token(char *e) {
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
-        char *substr_start = e + position;
+        //char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
 //printf("ljk::%d\n",position);
-        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-            i, rules[i].regex, position, substr_len, substr_len, substr_start);
+/*        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+            i, rules[i].regex, position, substr_len, substr_len, substr_start);*/
         position += substr_len;
 //printf("ljk_position::%d\n",position);
 	tokens[nr_token].type=rules[i].token_type;
@@ -217,11 +217,12 @@ uint32_t expr(char *e, bool *success) {
     return 0;
   }
   *success=true;
-  return eval(0,nr_token-1);
+  int t=eval(0,nr_token-1);
  // for(i=0;i<nr_token;i++)
 //	printf("%s\n",tokens[i].str);
 //  printf("ljk::checkout  %d\n",check_parentheses(0,nr_token-1));
   init_tokens_ljk();
+  return t;
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
 }
