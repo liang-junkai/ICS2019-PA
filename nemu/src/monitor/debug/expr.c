@@ -157,7 +157,7 @@ uint32_t expr(char *e, bool *success) {
     return 0;
   }
   int i=0;
-  for(i=0;i<=nr_token;i++)
+  for(i=0;i<nr_token;i++)
 	printf("%s\n",tokens[i].str);
   printf("ljk::checkout  %d\n",check_parentheses(0,nr_token));
   init_tokens_ljk();
