@@ -98,6 +98,11 @@ bool check_parentheses(uint32_t p,uint32_t q){
 }
 extern int number_ljk(char*arg,int dec);
 uint32_t eval(int p,int q){
+int ljk=p;
+for(ljk=p;ljk<=q;ljk++){
+printf("%s",tokens[ljk].str);
+}
+printf("\n");
   if(p>q){
 	printf("bad expression\n");
 	return -1;
