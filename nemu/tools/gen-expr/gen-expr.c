@@ -79,9 +79,17 @@ static inline void gen_rand_expr() {
 static char code_buf[65536];
 static char *code_format =
 "#include <stdio.h>\n"
+"#include<math.h>\n"
 "int main() { "
-"  unsigned result = %s; "
-"  printf(\"%%u\",result);"
+"  double result1=%s;"
+"  if(!isfinite(result1)){"
+"  	unsigned int result=4294967295; "
+"	printf(\"%%u\",result); " 
+"  }"
+"  else{"
+"	unsigned int result=result1;"
+"	printf(\"%%u\",result);"
+"  }"
 "  return 0; "
 "}";
 int main(int argc, char *argv[]) {
