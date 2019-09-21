@@ -146,7 +146,7 @@ int test_p(){
 	int number=fscanf(fp,"%u",&result1);
 	char *str=fgets(expr1,100,fp);
 	number++;
-	str[0]='\0';
+	number=strlen(str);
 	printf("%u %s\n",result1,expr1);
 	bool success1=false;
 	bool *success=&success1;
