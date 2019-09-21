@@ -145,6 +145,7 @@ int test_p(){
 	char expr1[15];
 	int number=fscanf(fp,"%u %s",&result1,expr1);
 	number++;
+	printf("%u %s\n",result1,expr1);
 	bool success1=false;
 	bool *success=&success1;
 	uint32_t result2=expr(expr1,success);
