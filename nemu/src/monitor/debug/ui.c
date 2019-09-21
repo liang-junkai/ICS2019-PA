@@ -154,6 +154,7 @@ int test_p(){
 	uint32_t result2=expr(expr1,success);
 	if(result1==result2)continue;
 	else{
+		printf("%u\n",result2);
 		fclose(fp);
 		return 0;
 	}
