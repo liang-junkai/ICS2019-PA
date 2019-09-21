@@ -135,7 +135,7 @@ static int cmd_x(char *args){
 return 0;
 }
 int test_p(){
-  FILE *fp=fopen("..\\..\\..\\tools\\gen-expr\\input","r");
+  FILE *fp=fopen("../../../tools/gen-expr/input","r");
   if(fp==NULL){
 	printf("no such file\n");
 	return 0;
