@@ -81,15 +81,8 @@ static char *code_format =
 "#include <stdio.h>\n"
 "#include<math.h>\n"
 "int main() { "
-"  double result1=%s;"
-"  if(!isfinite(result1)){"
-"  	unsigned int result=4294967295; "
-"	printf(\"%%u\",result); " 
-"  }"
-"  else{"
-"	unsigned int result=result1;"
+"	unsigned int result=%s;"
 "	printf(\"%%u\",result);"
-"  }"
 "  return 0; "
 "}";
 int main(int argc, char *argv[]) {
