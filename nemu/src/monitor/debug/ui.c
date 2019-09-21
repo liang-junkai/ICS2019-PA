@@ -148,6 +148,7 @@ int test_p(){
 	number++;
 	number=strlen(str);
 	printf("%u %s\n",result1,expr1);
+	expr1[strlen(expr1)-1]='\0';
 	bool success1=false;
 	bool *success=&success1;
 	uint32_t result2=expr(expr1,success);
