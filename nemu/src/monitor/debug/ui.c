@@ -142,9 +142,11 @@ int test_p(){
   }
   while(feof(fp)==0){
 	uint32_t result1;
-	char expr1[15];
-	int number=fscanf(fp,"%u %s",&result1,expr1);
+	char expr1[100];
+	int number=fscanf(fp,"%u",&result1);
+	char *str=fgets(expr1,100,fp);
 	number++;
+	str[0]='\0';
 	printf("%u %s\n",result1,expr1);
 	bool success1=false;
 	bool *success=&success1;
