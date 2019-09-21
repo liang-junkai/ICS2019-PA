@@ -217,7 +217,7 @@ uint32_t expr(char *e, bool *success) {
     return 0;
   }
   *success=true;
-  int t=eval(0,nr_token-1);
+  uint32_t t=eval(0,nr_token-1);
  // for(i=0;i<nr_token;i++)
 //	printf("%s\n",tokens[i].str);
 //  printf("ljk::checkout  %d\n",check_parentheses(0,nr_token-1));
