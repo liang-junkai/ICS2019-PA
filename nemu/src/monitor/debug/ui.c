@@ -159,7 +159,6 @@ int test_p(){
 }
 static int cmd_p(char *args){
   char *arg=args;
-  printf("%s\n",arg);
   if(arg==NULL){
 	int right=test_p();	
 	if(right==0)printf("fail\n");
