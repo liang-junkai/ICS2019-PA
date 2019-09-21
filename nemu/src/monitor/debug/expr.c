@@ -28,7 +28,7 @@ static struct rule {
   {"/",TK_DIV},//chu
   {"\\(",TK_LBRA},
   {"\\)",TK_RBRA},
-  {"[1-9]+",TK_NUM},
+  {"[0-9]+",TK_NUM},
   {"\\*",TK_MUL}
 };
 

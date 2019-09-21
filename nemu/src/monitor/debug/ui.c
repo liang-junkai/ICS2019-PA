@@ -134,10 +134,38 @@ static int cmd_x(char *args){
  // printf("0x%s:\t%x\n",arg,paddr_read(addr,len_ljk));
 return 0;
 }
-
+int test_p(){
+  FILE *fp=fopen("nemu/tools/gen-expr/input","r");
+  if(fp==NULL){
+	printf("no such file\n");
+	return 0;
+  }
+  while(feof(fp)==0){
+	uint32_t result1;
+	char expr1[15];
+	int number=fscanf(fp,"%u %s",&result1,expr1);
+	number++;
+	bool success1=false;
+	bool *success=&success1;
+	uint32_t result2=expr(expr1,success);
+	if(result1==result2)continue;
+	else{
+		fclose(fp);
+		return 0;
+	}
+  }
+  return 1;
+  fclose(fp);
+}
 static int cmd_p(char *args){
   char *arg=args;
   printf("%s\n",arg);
+  if(arg==NULL){
+	int right=test_p();	
+	if(right==0)printf("fail\n");
+	if(right==1)printf("success\n");
+	return 0;
+  }
 //	printf("Please Use p [expr] correctly!\n");
 //	return 0;
 bool success1=false;
