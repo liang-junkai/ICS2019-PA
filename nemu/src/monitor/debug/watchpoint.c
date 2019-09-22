@@ -19,6 +19,7 @@ void init_wp_pool() {
 }
 
 /* TODO: Implement the functionality of watchpoint */
+ static int count=0;
 
 WP *new_wp(){
   if(free_==NULL)assert(free_!=NULL);
@@ -27,6 +28,7 @@ WP *new_wp(){
 	for(;tail_free->next->next!=NULL;tail_free=tail_free->next);
 	tail_head=head=tail_free->next;
 	tail_free->next=NULL;
+	count++;
 	return tail_head; 
   }
   else{
@@ -35,12 +37,33 @@ WP *new_wp(){
 	tail_head->next=tail_free->next;
 	tail_head=tail_head->next;
 	tail_free->next=NULL;
+	count++;
 	return tail_head;
   } 
 }
 
-void free_wp(WP *wp){
-
+bool free_wp(int n){
+  if(n>count)return false;
+  WP *tail_free=free_;
+  for(;tail_free->next!=NULL;tail_free=tail_free->next);
+  if(n==1){
+	tail_free->next=head;
+	head=head->next;
+	tail_free->next=NULL;
+	count--;
+  }
+  else{
+	WP *p=head;
+	int i=1;
+	for(;i<n-1;p=p->next);
+	WP *q=p->next;
+	p->next=q->next;
+	tail_free->next=q;
+	tail_free=tail_free->next;
+	tail_free->next=NULL;
+	count--;
+  }
+  return true;
 }
 void watchpoint_display(){
   int i=1;
