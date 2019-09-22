@@ -30,7 +30,7 @@ static struct rule {
   {"/",TK_DIV},//chu
   {"\\(",TK_LBRA},
   {"\\)",TK_RBRA},
-  {"\\$[a-z]*[A-Z]",TK_REG},
+  {"\\$[a-z]*[A-Z]*",TK_REG},
   {"0x[0-9]*[a-z]*[A-Z]*",TK_HXNUM},
   {"[0-9]+",TK_NUM},
   {"\\*",TK_MUL},
