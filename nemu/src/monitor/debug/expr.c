@@ -8,7 +8,7 @@
 
 enum {
   TK_NOTYPE = 256, TK_PLUS,TK_EQ,TK_SUB,
-  TK_DIV,TK_LBRA,TK_RBRA,TK_HXNUM,TK_NUM,TK_MUL,TK_NONE,
+  TK_DIV,TK_LBRA,TK_RBRA,TK_REG,TK_HXNUM,TK_NUM,TK_MUL,TK_NONE,
   TK_NEQ,TK_AND
  /* TODO: Add more token types */ 
 };
@@ -30,6 +30,7 @@ static struct rule {
   {"/",TK_DIV},//chu
   {"\\(",TK_LBRA},
   {"\\)",TK_RBRA},
+  {"\\$[a-z]*[A-Z]",TK_REG},
   {"0x[0-9]*[a-z]*[A-Z]*",TK_HXNUM},
   {"[0-9]+",TK_NUM},
   {"\\*",TK_MUL},
@@ -100,6 +101,7 @@ bool check_parentheses(uint32_t p,uint32_t q){
   }
   return true;
 }
+extern uint32_t isa_reg_str2val(const char* s,bool *success);
 extern int number_ljk(char*arg,int dec);
 uint32_t eval(int p,int q){
 /*int ljk=p;
@@ -123,6 +125,23 @@ printf("\n");*/
 	str[i]='\0';
 //	printf("str:%s\n",str);
 	return number_ljk(str,16);
+  }
+  else if(tokens[p].type==TK_REG){
+	bool success=false;
+	char str[10];
+	int i=0;
+	for(i=0;i<strlen(tokens[p].str)-1;i++){
+		str[i]=tokens[p].str[i+1];	
+	}
+	str[i]='\0';
+	uint32_t result=isa_reg_str2val(str,&success);
+	if(success==true){
+		return result;
+	}
+	else {
+		printf("str::%s something is wrong",str);
+		return 0;
+	}
   }
   else {printf("bad expression2\n");return 0;}
 }
