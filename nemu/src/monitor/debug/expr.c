@@ -120,6 +120,7 @@ printf("\n");*/
 	for(i=0;i<strlen(tokens[p].str)-2;i++){
 		str[i]=str[i+2];
 	}
+	printf("%s\n",str);
 	str[i]='\0';
 	return number_ljk(str,16);
   }
