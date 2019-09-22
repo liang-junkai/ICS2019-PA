@@ -90,6 +90,7 @@ int number_ljk(char *arg,int dec){
 			printf("wrong input\n");
 			return -1;
 		}
+		result+=(arg[i]-'A'+10)*mulptily_ljk(dec,strlen(arg)-i-1);
 	}
 	else{
 		printf("wrong number input");
