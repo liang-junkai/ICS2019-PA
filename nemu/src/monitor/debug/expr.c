@@ -114,6 +114,7 @@ uint32_t read_addr(uint32_t addr){
   int i;
   for(i=0;i<4;i++){
 	result1+=result[i]*mulptily_ljk(16,6-i);
+	printf("%x\n",result[i]);
   }
   return result1;
 }
