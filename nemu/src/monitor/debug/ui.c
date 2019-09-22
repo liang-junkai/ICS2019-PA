@@ -85,10 +85,16 @@ int number_ljk(char *arg,int dec){
 }
 	result+=(arg[i]-'a'+10)*mulptily_ljk(dec,strlen(arg)-i-1);
 }
-/*	else{
+	else if(arg[i]>='A'&&arg[i]<='Z'){
+		if(arg[i]-'A'+10>=dec){
+			printf("wrong input\n");
+			return -1;
+		}
+	}
+	else{
 		printf("wrong number input");
 		return -1;
-}*/
+}
 }
   return result;
 }

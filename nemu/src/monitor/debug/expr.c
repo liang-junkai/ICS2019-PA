@@ -8,7 +8,7 @@
 
 enum {
   TK_NOTYPE = 256, TK_PLUS,TK_EQ,TK_SUB,
-  TK_DIV,TK_LBRA,TK_RBRA,TK_NUM,TK_MUL,TK_NONE,
+  TK_DIV,TK_LBRA,TK_RBRA,TK_HXNUM,TK_NUM,TK_MUL,TK_NONE,
   TK_NEQ,TK_AND
  /* TODO: Add more token types */ 
 };
@@ -31,6 +31,7 @@ static struct rule {
   {"\\(",TK_LBRA},
   {"\\)",TK_RBRA},
   {"[0-9]+",TK_NUM},
+  {"0x[0-9a-zA-F]+",TK_HXNUM},
   {"\\*",TK_MUL},
   {"&&",TK_AND}
 };
@@ -113,6 +114,15 @@ printf("\n");*/
   else if(p==q){
   if(tokens[p].type==TK_NUM){
 	return number_ljk(tokens[p].str,10);}
+  else if(tokens[p].type==TK_HXNUM){
+	int i=0;
+	char str[20];
+	for(i=0;i<strlen(tokens[p].str)-2;i++){
+		str[i]=str[i+2];
+	}
+	str[i]='\0';
+	return number_ljk(str,16);
+  }
   else {printf("bad expression2\n");return 0;}
 }
   else if(check_parentheses(p,q)==true){
