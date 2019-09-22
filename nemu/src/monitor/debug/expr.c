@@ -121,7 +121,7 @@ printf("\n");*/
 		str[i]=tokens[p].str[i+2];
 	}
 	str[i]='\0';
-	printf("str:%s\n",str);
+//	printf("str:%s\n",str);
 	return number_ljk(str,16);
   }
   else {printf("bad expression2\n");return 0;}
