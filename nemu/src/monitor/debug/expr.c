@@ -8,7 +8,8 @@
 
 enum {
   TK_NOTYPE = 256, TK_PLUS,TK_EQ,TK_SUB,
-  TK_DIV,TK_LBRA,TK_RBRA,TK_NUM,TK_MUL,TK_NONE
+  TK_DIV,TK_LBRA,TK_RBRA,TK_NUM,TK_MUL,TK_NONE,
+  TK_NEQ,TK_AND
  /* TODO: Add more token types */ 
 };
 
@@ -24,12 +25,14 @@ static struct rule {
   {" +", TK_NOTYPE},    // spaces
   {"\\+", TK_PLUS},         // plus
   {"==", TK_EQ},// equal
+  {"!=",TK_NEQ},
   {"-",TK_SUB},//sub
   {"/",TK_DIV},//chu
   {"\\(",TK_LBRA},
   {"\\)",TK_RBRA},
   {"[0-9]+",TK_NUM},
-  {"\\*",TK_MUL}
+  {"\\*",TK_MUL},
+  {"&&",TK_AND}
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -126,6 +129,9 @@ printf("\n");*/
 			case TK_SUB:position[i]=1;break;
 			case TK_MUL:position[i]=2;break;
 			case TK_DIV:position[i]=2;break;
+			case TK_EQ:position[i]=2;break;
+			case TK_NEQ:position[i]=2;break;
+			case TK_AND:position[i]=2;break;
 		}
 	}
 	int j=0,m=0;
@@ -148,6 +154,9 @@ printf("\n");*/
 				case TK_SUB:return eval(p,p+i-1)-eval(p+i+1,q);
 				case TK_MUL:return eval(p,p+i-1)*eval(p+i+1,q);
 				case TK_DIV:return eval(p,p+i-1)/eval(p+i+1,q);
+				case TK_EQ:return eval(p,p+i-1)==eval(p+i+1,q);
+				case TK_NEQ:return eval(p,p+i-1)!=eval(p+i+1,q);
+				case TK_AND:return eval(p,p+i-1)&&eval(p+i+1,q);
 			}
 		}
 	}	
