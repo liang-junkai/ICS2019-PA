@@ -30,8 +30,8 @@ static struct rule {
   {"/",TK_DIV},//chu
   {"\\(",TK_LBRA},
   {"\\)",TK_RBRA},
+  {"0x[0-9]*[a-z]*[A-Z]*",TK_HXNUM},
   {"[0-9]+",TK_NUM},
-  {"0x",TK_HXNUM},
   {"\\*",TK_MUL},
   {"&&",TK_AND}
 };
