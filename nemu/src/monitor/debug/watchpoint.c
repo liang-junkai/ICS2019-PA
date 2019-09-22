@@ -29,6 +29,7 @@ WP *new_wp(){
 	tail_head=head=tail_free->next;
 	tail_free->next=NULL;
 	count++;
+	printf("%-5d",count);
 	return tail_head; 
   }
   else{
@@ -38,6 +39,7 @@ WP *new_wp(){
 	tail_head=tail_head->next;
 	tail_free->next=NULL;
 	count++;
+	printf("%-5d",count);
 	return tail_head;
   } 
 }
