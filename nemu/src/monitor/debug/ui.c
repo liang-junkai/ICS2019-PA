@@ -187,7 +187,20 @@ bool success1=false;
  printf("%-15u0x%-15x\n",result,result);
  return 0;
 }
+extern void init_wp_pool();
+extern WP* new_wp();
 
+static int cmd_w(char *args){
+  static int start=0;
+  if(start==0){
+	init_wp_pool();
+	start++;
+  }
+  WP* wt=new_wp();
+  strcpy(wt->str,args);
+  printf("%s\n",wt->str);
+  return 0; 	
+}
 
 static struct {
   char *name;
@@ -201,7 +214,8 @@ static struct {
   /* TODO: Add more commands */
   {"info","info [r][w], use r to type the values of the 32_bytes registers, use w know the info of the watchpoint",cmd_info},
   {"x","Use x [N] [addr] to know the value in a certain address",cmd_x},
-  {"p","Use p [expr] to caculate the expr you have given",cmd_p}
+  {"p","Use p [expr] to caculate the expr you have given",cmd_p},
+  {"w","Use w [expr] to set the watchpoint",cmd_w}
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
