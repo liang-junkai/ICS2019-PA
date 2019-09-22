@@ -47,7 +47,7 @@ void watchpoint_display(){
   printf("%-10s%-20s%-15s%-15s\n","NUM","EXPR","VALUE","0x_VALUE");
   for(WP* p=head;p!=NULL;p=p->next){
 	bool success=false;
-	printf("%-10d%-20s%-15u%0x-15x\n",i,p->str,expr(p->str,&success),expr(p->str,&success));
+	printf("%-10d%-20s%-15u0x%-15x\n",i,p->str,expr(p->str,&success),expr(p->str,&success));
 	i++;
   }
 }
