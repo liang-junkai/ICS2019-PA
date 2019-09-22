@@ -120,8 +120,8 @@ printf("\n");*/
 	for(i=0;i<strlen(tokens[p].str)-2;i++){
 		str[i]=str[i+2];
 	}
-	printf("%s\n",str);
 	str[i]='\0';
+	printf("str:%s\n",str);
 	return number_ljk(str,16);
   }
   else {printf("bad expression2\n");return 0;}
