@@ -9,7 +9,7 @@
 enum {
   TK_NOTYPE = 256, TK_PLUS,TK_EQ,TK_SUB,
   TK_DIV,TK_LBRA,TK_RBRA,TK_REG,TK_HXNUM,TK_NUM,TK_MUL,TK_NONE,
-  TK_NEQ,TK_AND
+  TK_NEQ,TK_AND,TK_DEFER
  /* TODO: Add more token types */ 
 };
 
@@ -101,8 +101,22 @@ bool check_parentheses(uint32_t p,uint32_t q){
   }
   return true;
 }
+extern int mulptily(int i,int j);
 extern uint32_t isa_reg_str2val(const char* s,bool *success);
 extern int number_ljk(char*arg,int dec);
+uint32_t read_addr(uint32_t addr){
+  uint32_t result[4];
+  result[0]=paddr_read(addr+3,1);
+  result[1]=paddr_read(addr+2,1);
+  result[2]=paddr_read(addr+1,1);
+  result[3]=paddr_read(addr,1);
+  uint32_t result1=0;
+  int i;
+  for(i=0;i<4;i++){
+	result1+=result[i]*mulptily(16,6-i);
+  }
+  return result1;
+}
 uint32_t eval(int p,int q){
 /*int ljk=p;
 for(ljk=p;ljk<=q;ljk++){
@@ -115,7 +129,11 @@ printf("\n");*/
 }
   else if(p==q){
   if(tokens[p].type==TK_NUM){
-	return number_ljk(tokens[p].str,10);}
+		if(tokens[p-1].type==TK_DEFER){
+		return read_addr(number_ljk(tokens[p].str,10));
+	}
+	return number_ljk(tokens[p].str,10);
+  }
   else if(tokens[p].type==TK_HXNUM){
 	int i=0;
 	char str[20];
@@ -123,7 +141,10 @@ printf("\n");*/
 		str[i]=tokens[p].str[i+2];
 	}
 	str[i]='\0';
-//	printf("str:%s\n",str);
+	if(tokens[p-1].type==TK_DEFER){
+		return read_addr(number_ljk(str,16));
+	}
+ // printf("str:%s\n",str);
 	return number_ljk(str,16);
   }
   else if(tokens[p].type==TK_REG){
@@ -136,6 +157,9 @@ printf("\n");*/
 	str[i]='\0';
 	uint32_t result=isa_reg_str2val(str,&success);
 	if(success==true){
+	if(tokens[p-1].type==TK_DEFER){
+		return read_addr(result);
+	}
 		return result;
 	}
 	else {
@@ -150,6 +174,10 @@ printf("\n");*/
   	q--;
   	return eval(p,q);
 }
+  else if(tokens[p].type==TK_DEFER){
+	p++;
+	return eval(p,q);
+  }
   else{
 	int position[32]={0};
 	int i=0;
@@ -256,6 +284,12 @@ uint32_t expr(char *e, bool *success) {
     return 0;
   }
   *success=true;
+  int i;
+  for(i=0;i<nr_token;i++){
+	if(tokens[i].type=='*'&&(i==0||tokens[i-1].type!=TK_NUM||tokens[i-1].type!=TK_LBRA||tokens[i-1].type!=TK_RBRA)){
+		tokens[i].type=TK_DEFER;
+	}
+  }
   uint32_t t=eval(0,nr_token-1);
  // for(i=0;i<nr_token;i++)
 //	printf("%s\n",tokens[i].str);
