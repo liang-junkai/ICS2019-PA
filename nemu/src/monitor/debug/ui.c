@@ -202,7 +202,14 @@ static int cmd_w(char *args){
   printf("%s\n",wt->str);
   return 0; 	
 }
-
+extern bool free_wp(int n);
+static int cmd_d(char *args){
+ int n=number_ljk(args,10);
+ bool success=free_wp(n);
+ if(success==true)printf("successful delete\n");
+ else printf("delete fail\n");
+ return 0;
+}
 static struct {
   char *name;
   char *description;
@@ -216,7 +223,8 @@ static struct {
   {"info","info [r][w], use r to type the values of the 32_bytes registers, use w know the info of the watchpoint",cmd_info},
   {"x","Use x [N] [addr] to know the value in a certain address",cmd_x},
   {"p","Use p [expr] to caculate the expr you have given",cmd_p},
-  {"w","Use w [expr] to set the watchpoint",cmd_w}
+  {"w","Use w [expr] to set the watchpoint",cmd_w},
+  {"d","Use d [expr] to delete the watchpoint you set just now",cmd_d}
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
