@@ -177,7 +177,7 @@ bool success1=false;
  bool *success;
  success=&success1;
  uint32_t result=expr(arg,success);
- printf("%u\n",result);
+ printf("%-15u0x%-15x\n",result,result);
  return 0;
 }
 
