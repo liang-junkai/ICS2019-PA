@@ -286,7 +286,7 @@ uint32_t expr(char *e, bool *success) {
   *success=true;
   int i;
   for(i=0;i<nr_token;i++){
-	if(tokens[i].type=='*'&&(i==0||tokens[i-1].type!=TK_NUM||tokens[i-1].type!=TK_LBRA||tokens[i-1].type!=TK_RBRA)){
+	if(tokens[i].type==TK_MUL&&(i==0||tokens[i-1].type!=TK_NUM||tokens[i-1].type!=TK_RBRA||tokens[i-1].type!=TK_REG)){
 		tokens[i].type=TK_DEFER;
 	}
   }
