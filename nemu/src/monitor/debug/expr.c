@@ -31,7 +31,7 @@ static struct rule {
   {"\\(",TK_LBRA},
   {"\\)",TK_RBRA},
   {"[0-9]+",TK_NUM},
-  {"0x[0-9a-zA-F]+",TK_HXNUM},
+  {"0x[0-9]*[a-z]*[A-Z]*",TK_HXNUM},
   {"\\*",TK_MUL},
   {"&&",TK_AND}
 };
