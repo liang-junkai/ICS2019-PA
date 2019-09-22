@@ -118,7 +118,7 @@ printf("\n");*/
 	int i=0;
 	char str[20];
 	for(i=0;i<strlen(tokens[p].str)-2;i++){
-		str[i]=str[i+2];
+		str[i]=tokens[p].str[i+2];
 	}
 	str[i]='\0';
 	printf("str:%s\n",str);
