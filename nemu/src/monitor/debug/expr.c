@@ -101,7 +101,7 @@ bool check_parentheses(uint32_t p,uint32_t q){
   }
   return true;
 }
-extern int mulptily(int i,int j);
+extern int mulptily_ljk(int i,int j);
 extern uint32_t isa_reg_str2val(const char* s,bool *success);
 extern int number_ljk(char*arg,int dec);
 uint32_t read_addr(uint32_t addr){
@@ -113,7 +113,7 @@ uint32_t read_addr(uint32_t addr){
   uint32_t result1=0;
   int i;
   for(i=0;i<4;i++){
-	result1+=result[i]*mulptily(16,6-i);
+	result1+=result[i]*mulptily_ljk(16,6-i);
   }
   return result1;
 }
