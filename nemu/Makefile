@@ -78,7 +78,7 @@ run: run-env
 
 gdb: run-env
 	$(call git_commit, "gdb")
-	gdb -s $(BINARY) --args $(NEMU_EXEC)
+	gdbtui -s $(BINARY) --args $(NEMU_EXEC)
 
 clean:
 	-rm -rf $(BUILD_DIR)
