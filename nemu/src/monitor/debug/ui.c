@@ -50,6 +50,7 @@ static int cmd_si(char *args){
 return 0; 
 }
 extern void isa_reg_display();
+extern void watchpoint_display();
 static int cmd_info(char *args){
 	char *arg=strtok(NULL," ");
 	if(arg==NULL){
@@ -61,7 +62,7 @@ static int cmd_info(char *args){
 		return 0;
 }
 	else if(strcmp(arg,"w")==0){
-		printf("we will define info[w] later\n");
+		watchpoint_display();
 		return 0;
 }
 	else{
