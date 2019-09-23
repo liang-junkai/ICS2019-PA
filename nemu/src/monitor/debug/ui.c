@@ -199,6 +199,8 @@ static int cmd_w(char *args){
   }
   WP* wt=new_wp();
   strcpy(wt->str,args);
+  bool success=false;
+  wt->result=expr(wt->str,&success);
   printf("%s\n",wt->str);
   return 0; 	
 }

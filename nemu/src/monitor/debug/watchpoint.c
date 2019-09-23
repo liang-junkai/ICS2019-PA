@@ -76,3 +76,15 @@ void watchpoint_display(){
 	i++;
   }
 }
+bool check_watchpoint(){
+  bool change=false;
+  bool success=false;
+  for(WP* p=head;p!=NULL;p=p->next){
+	if(p->result!=expr(p->str,&success)){
+		printf("watchpoint   %-10s%-10u%-10u\n",p->str,p->result,expr(p->str,&success));
+		change=true;
+		p->result=expr(p->str,&success);
+	}	
+  }
+  return change;
+}

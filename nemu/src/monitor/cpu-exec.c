@@ -28,6 +28,7 @@ void monitor_statistic(void) {
   Log("total guest instructions = %ld", g_nr_guest_instr);
 }
 
+extern bool check_watchpoint();
 /* Simulate how the CPU works. */
 void cpu_exec(uint64_t n) {
   switch (nemu_state.state) {
@@ -57,9 +58,12 @@ void cpu_exec(uint64_t n) {
               "we do not record more instruction trace beyond this point.\n"
               "To capture more trace, you can modify the LOG_MAX macro in %s\n\n", __FILE__);
   }
-
+  
     /* TODO: check watchpoints here. */
-
+  bool change=check_watchpoint();
+  if(change==true){
+	nemu_state.state=NEMU_STOP;
+  }
 #endif
 
   g_nr_guest_instr ++;
