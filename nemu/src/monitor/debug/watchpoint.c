@@ -81,7 +81,7 @@ bool check_watchpoint(){
   bool success=false;
   for(WP* p=head;p!=NULL;p=p->next){
 	if(p->result!=expr(p->str,&success)){
-		printf("watchpoint   %-10s%-10u%-10u\n",p->str,p->result,expr(p->str,&success));
+		printf("watchpoint   %-10s%-10u   ->   %-10u\n",p->str,p->result,expr(p->str,&success));
 		change=true;
 		p->result=expr(p->str,&success);
 	}	
