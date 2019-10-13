@@ -1,6 +1,5 @@
 #include "cpu/exec.h"
 #include "all-instr.h"
-#include "control.c"
 static inline void set_width(int width) {
   if (width == 0) {
     width = decinfo.isa.is_operand_size_16 ? 2 : 4;
@@ -9,7 +8,7 @@ static inline void set_width(int width) {
 }
 
 static make_EHelper(2byte_esc);
-
+make_EHelper(call);
 #define make_group(name, item0, item1, item2, item3, item4, item5, item6, item7) \
   static OpcodeEntry concat(opcode_table_, name) [8] = { \
     /* 0x00 */	item0, item1, item2, item3, \
