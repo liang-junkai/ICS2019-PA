@@ -2,7 +2,6 @@
 #include "monitor/monitor.h"
 
 make_EHelper(nop) {
-  printf("\n%u\n",decinfo.seq_pc);
   print_asm("nop");
 }
 
