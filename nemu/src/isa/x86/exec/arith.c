@@ -8,7 +8,7 @@ make_EHelper(add) {
 
 make_EHelper(sub) {
   //TODO();
-  rtl_sub(&id_dest->val,&id_dest->val,&id_dest->val);
+  rtl_sub(&id_dest->val,&id_dest->val,&id_src->val);
   if(id_dest->type==OP_TYPE_REG){
 	rtl_sr(id_dest->reg,&id_dest->val,id_dest->width);
 }
