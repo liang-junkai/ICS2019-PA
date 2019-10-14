@@ -36,7 +36,7 @@ make_EHelper(ret) {
   rtl_pop(&s0);
   assert(id_dest->type==OP_TYPE_REG);
   rtl_sr(id_dest->reg,&s0,4);
-  rtl_j(decinfo.jmp_pc);
+  rtl_j(decinfo.seq_pc);
   print_asm("ret");
 }
 
