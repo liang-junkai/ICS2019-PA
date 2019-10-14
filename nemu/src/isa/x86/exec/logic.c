@@ -14,8 +14,11 @@ make_EHelper(and) {
 }
 
 make_EHelper(xor) {
-  TODO();
-
+  //TODO();
+  rtl_xor(&id_dest->val,&id_dest->val,&id_src->val);
+  if(id_dest->type==OP_TYPE_REG){
+	rtl_sr(id_dest->reg,&id_dest->val,id_dest->width);
+}
   print_asm_template2(xor);
 }
 
