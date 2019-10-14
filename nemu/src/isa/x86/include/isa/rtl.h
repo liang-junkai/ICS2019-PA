@@ -28,7 +28,7 @@ static inline void rtl_push(const rtlreg_t* src1) {
   // M[esp] <- src1
   //TODO();
   reg_l(R_ESP)=reg_l(R_ESP)-4;
-  rtl_sr(R_ESP,src1,4);
+  vaddr_write(reg_l(R_ESP),*src1,4);
 }
 
 static inline void rtl_pop(rtlreg_t* dest) {
