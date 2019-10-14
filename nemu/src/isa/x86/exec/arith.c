@@ -7,8 +7,10 @@ make_EHelper(add) {
 }
 
 make_EHelper(sub) {
-  TODO();
-
+  //TODO();
+  rtl_sub(&id_dest->val,&id_dest->val,&id_dest->val);
+  rtl_is_sub_overflow(&s0,&id_dest->val,&id_dest->val,&id_src->val,decinfo.width);
+  reg_f(OF)=s0;
   print_asm_template2(sub);
 }
 
