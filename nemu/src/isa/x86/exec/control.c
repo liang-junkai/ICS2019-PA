@@ -27,6 +27,8 @@ make_EHelper(jmp_rm) {
 make_EHelper(call) {
   // the target address is calculated at the decode stage
   //TODO();
+  reg_l(R_ESP)-=4;
+  vaddr_write(reg_l(R_ESP),decinfo.seq_pc,4);
   rtl_j(decinfo.jmp_pc);
   print_asm("call %x", decinfo.jmp_pc);
 }
@@ -36,7 +38,7 @@ make_EHelper(ret) {
   rtl_pop(&s0);
   assert(id_dest->type==OP_TYPE_REG);
   rtl_sr(id_dest->reg,&s0,4);
-  rtl_j(decinfo.seq_pc);
+  rtl_j(s0);
   print_asm("ret");
 }
 
