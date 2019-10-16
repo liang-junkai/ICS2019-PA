@@ -172,7 +172,7 @@ printf("\n");*/
   else if(check_parentheses(p,q)==true){
   	p++;
   	q--;
-  	return eval(p,q);
+  	return read_addr(eval(p,q));
 }
   else if(tokens[p].type==TK_DEFER){
 	p++;
