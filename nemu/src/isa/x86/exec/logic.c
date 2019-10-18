@@ -8,8 +8,10 @@ make_EHelper(test) {
 }
 
 make_EHelper(and) {
-  TODO();
-
+  //TODO();
+  rtl_and(&id_dest->val,&id_dest->val,&id_src->val);
+  assert(id_dest->type==OP_TYPE_REG);
+  rtl_sr(id_dest->reg,&id_dest->val,id_dest->width);
   print_asm_template2(and);
 }
 
