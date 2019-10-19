@@ -35,6 +35,7 @@ static inline make_DopHelper(SI) {
   //TODO();
   if(op->width==1){
     rtlreg_t temp= op->imm>>7==0 ? 0xff : 0xffffffff;
+    printf("%-10x\n",temp);
     op->imm=temp&op->imm;
     op->width=4;
   }
