@@ -6,7 +6,7 @@ static inline void set_width(int width) {
   }
   decinfo.src.width = decinfo.dest.width = decinfo.src2.width = width;
 }
-
+make_DHelper(SI);
 static make_EHelper(2byte_esc);
 make_EHelper(call);
 make_EHelper(push);
