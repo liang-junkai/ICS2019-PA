@@ -33,7 +33,11 @@ static inline make_DopHelper(SI) {
    */
   op->imm=instr_fetch(pc,op->width);
   //TODO();
-
+  if(op->width==1){
+    rtlreg_t temp= op->imm>>7==0 ? 0xff : 0xffffffff;
+    op->imm=temp&op->imm;
+    op->width=4;
+  }
   rtl_li(&op->val, op->simm);
 
   print_Dop(op->str, OP_STR_SIZE, "$0x%x", op->simm);
