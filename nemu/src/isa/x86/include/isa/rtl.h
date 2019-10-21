@@ -74,7 +74,7 @@ static inline void rtl_is_add_overflow(rtlreg_t* dest,
   else{
     *dest=0;
   }
-  TODO();
+  //TODO();
 }
 
 static inline void rtl_is_add_carry(rtlreg_t* dest,
@@ -110,7 +110,7 @@ static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
 static inline void rtl_update_SF(const rtlreg_t* result, int width) {
   // eflags.SF <- is_sign(result[width * 8 - 1 .. 0])
   reg_f(SF)=(*result)>>(width*8-1);
-  TODO();
+  //TODO();
 }
 
 static inline void rtl_update_ZFSF(const rtlreg_t* result, int width) {
