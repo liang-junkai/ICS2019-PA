@@ -1,8 +1,15 @@
 #include "cpu/exec.h"
 
 make_EHelper(add) {
-  TODO();
-
+  //TODO();
+  rtl_is_add_overflow(&s0,&id_dest->val,&id_dest->val,&id_src->val,id_dest->width);
+  reg_f(OF)=s0;
+  rtl_add(&id_dest->val,&id_dest->val,&id_src->val);
+  rtl_update_ZFSF(&id_dest->val,id_dest->width);
+  printf("SF: %-2d ZF: %-2d CF: %-2d\n",reg_f(SF),reg_f(ZF),reg_f(CF));
+  if(id_dest->type==OP_TYPE_REG){
+    rtl_sr(id_dest->reg,&id_dest->val,id_dest->width);
+  }
   print_asm_template2(add);
 }
 
