@@ -43,6 +43,16 @@ static inline void rtl_is_sub_overflow(rtlreg_t* dest,
     const rtlreg_t* res, const rtlreg_t* src1, const rtlreg_t* src2, int width) {
   // dest <- is_overflow(src1 - src2)
   //TODO();
+  t0=*src1-*src2;
+  if(*src1>0&&*src2<0&&t0>0){
+    *dest=1;
+  }
+  else if(*src1<0&&*src2>0&&t0>0){
+    *dest=1;
+  }
+  else{
+    *dest=0;
+  }
 }
 
 static inline void rtl_is_sub_carry(rtlreg_t* dest,
@@ -54,6 +64,16 @@ static inline void rtl_is_sub_carry(rtlreg_t* dest,
 static inline void rtl_is_add_overflow(rtlreg_t* dest,
     const rtlreg_t* res, const rtlreg_t* src1, const rtlreg_t* src2, int width) {
   // dest <- is_overflow(src1 + src2)
+  t0=*src1-*src2;
+  if(*src1>0&&*src2>0&&t0<0){
+    *dest=1;
+  }
+  else if(*src1<0&&*src2<0&&t0>0){
+    *dest=1;
+  }
+  else{
+    *dest=0;
+  }
   TODO();
 }
 
@@ -89,6 +109,7 @@ static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
 
 static inline void rtl_update_SF(const rtlreg_t* result, int width) {
   // eflags.SF <- is_sign(result[width * 8 - 1 .. 0])
+  reg_f(SF)=(*result)>>(width*8-1);
   TODO();
 }
 
