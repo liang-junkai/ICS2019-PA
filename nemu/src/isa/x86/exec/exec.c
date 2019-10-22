@@ -54,7 +54,7 @@ make_group(gp5,
 
 /* 0x0f 0x01*/
 make_group(gp7,
-    EX(setcc), EX(setcc), EMPTY, EMPTY,
+    EX(setcc), EX(setcc), EX(setcc), EMPTY,
     EMPTY, EMPTY, EMPTY, EMPTY)
 
 /* TODO: Add more instructions!!! */
