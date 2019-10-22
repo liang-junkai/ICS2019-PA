@@ -108,6 +108,7 @@ static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
       t1=t1<<1;
     }
   }
+  reg_f(ZF)=1;
   //TODO();
 }
 
