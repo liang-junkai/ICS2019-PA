@@ -2,8 +2,14 @@
 #include "cc.h"
 
 make_EHelper(test) {
-  TODO();
-
+  //TODO();
+  rtl_and(&s0,&id_dest->val,&id_src->val);
+  if(s0==0){
+    reg_f(ZF)=1;
+  }
+  else reg_f(ZF)=0;
+  reg_f(CF)=0;
+  reg_f(OF)=0;
   print_asm_template2(test);
 }
 
