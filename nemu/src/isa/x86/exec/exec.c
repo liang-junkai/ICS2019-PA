@@ -17,6 +17,7 @@ make_EHelper(lea);
 make_EHelper(and);
 make_EHelper(add);
 make_EHelper(cmp);
+make_EHelper(setcc);
 #define make_group(name, item0, item1, item2, item3, item4, item5, item6, item7) \
   static OpcodeEntry concat(opcode_table_, name) [8] = { \
     /* 0x00 */	item0, item1, item2, item3, \
@@ -53,7 +54,7 @@ make_group(gp5,
 
 /* 0x0f 0x01*/
 make_group(gp7,
-    EMPTY, EMPTY, EMPTY, EMPTY,
+    EX(setcc), EMPTY, EMPTY, EMPTY,
     EMPTY, EMPTY, EMPTY, EMPTY)
 
 /* TODO: Add more instructions!!! */
