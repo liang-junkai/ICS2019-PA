@@ -36,7 +36,7 @@ make_EHelper(call) {
 make_EHelper(ret) {
   //TODO();
   rtl_pop(&s0);
-  assert(id_dest->type==OP_TYPE_REG);
+  //assert(id_dest->type==OP_TYPE_REG);
   rtl_j(s0);
   print_asm("ret");
 }
