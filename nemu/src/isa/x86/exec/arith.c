@@ -6,7 +6,7 @@ make_EHelper(add) {
   reg_f(OF)=s0;
   rtl_add(&id_dest->val,&id_dest->val,&id_src->val);
   rtl_update_ZFSF(&id_dest->val,id_dest->width);
-  printf("SF: %-2d ZF: %-2d CF: %-2d\n",reg_f(SF),reg_f(ZF),reg_f(CF));
+  printf("SF: %-2d ZF: %-2d OF: %-2d\n",reg_f(SF),reg_f(ZF),reg_f(OF));
   if(id_dest->type==OP_TYPE_REG){
     rtl_sr(id_dest->reg,&id_dest->val,id_dest->width);
   }
@@ -19,7 +19,7 @@ make_EHelper(sub) {
   reg_f(OF)=s0;
   rtl_sub(&id_dest->val,&id_dest->val,&id_src->val);
   rtl_update_ZFSF(&id_dest->val,id_dest->width);
-  printf("SF: %-2d ZF: %-2d CF: %-2d\n",reg_f(SF),reg_f(ZF),reg_f(CF));
+  printf("SF: %-2d ZF: %-2d OF: %-2d\n",reg_f(SF),reg_f(ZF),reg_f(OF));
   if(id_dest->type==OP_TYPE_REG){
 	rtl_sr(id_dest->reg,&id_dest->val,id_dest->width);
 }
@@ -32,7 +32,7 @@ make_EHelper(cmp) {
   rtl_update_ZFSF(&s0,id_dest->width);
   rtl_is_sub_overflow(&s1,&s0,&id_dest->val,&id_src->val,id_dest->width);
   reg_f(OF)=s1;
-  printf("SF: %-2d ZF: %-2d CF: %-2d\n",reg_f(SF),reg_f(ZF),reg_f(CF));
+  printf("SF: %-2d ZF: %-2d OF: %-2d\n",reg_f(SF),reg_f(ZF),reg_f(OF));
   print_asm_template2(cmp);
 }
 
