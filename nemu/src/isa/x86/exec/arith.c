@@ -2,37 +2,56 @@
 
 make_EHelper(add) {
   //TODO();
-  rtl_is_add_overflow(&s0,&id_dest->val,&id_dest->val,&id_src->val,id_dest->width);
-  reg_f(OF)=s0;
-  rtl_add(&id_dest->val,&id_dest->val,&id_src->val);
-  rtl_update_ZFSF(&id_dest->val,id_dest->width);
-  printf("SF: %-2d ZF: %-2d OF: %-2d\n",reg_f(SF),reg_f(ZF),reg_f(OF));
-  if(id_dest->type==OP_TYPE_REG){
-    rtl_sr(id_dest->reg,&id_dest->val,id_dest->width);
-  }
+  //s0 is result, s1 is eflags
+  rtl_add(&s0,&id_dest->val,&id_src->val);
+
+  rtl_is_add_carry(&s1,&s0,&id_dest->val);
+  rtl_set_CF(&s1);
+
+  rtl_is_add_overflow(&s1,&s0,&id_dest->val,&id_src->val,id_dest->width);
+  reg_f(OF)=s1;
+
+  rtl_update_ZFSF(&s0,id_dest->width);
+  
+  printf("SF: %-2d ZF: %-2d OF: %-2d CF: %-2d\n",reg_f(SF),reg_f(ZF),reg_f(OF),reg_f(CF));
+  
+  id_dest->val=s0;
+  operand_write(id_dest,&id_dest->val);
+  
   print_asm_template2(add);
 }
 
 make_EHelper(sub) {
   //TODO();
-  rtl_is_sub_overflow(&s0,&id_dest->val,&id_dest->val,&id_src->val,id_dest->width);
-  reg_f(OF)=s0;
-  rtl_sub(&id_dest->val,&id_dest->val,&id_src->val);
+  rtl_sub(&s0,&id_dest->val,&id_src->val);
+
+  rtl_is_sub_overflow(&s1,&s0,&id_dest->val,&id_src->val,id_dest->width);
+  rtl_set_OF(&s1);
+
   rtl_update_ZFSF(&id_dest->val,id_dest->width);
-  printf("SF: %-2d ZF: %-2d OF: %-2d\n",reg_f(SF),reg_f(ZF),reg_f(OF));
-  if(id_dest->type==OP_TYPE_REG){
-	rtl_sr(id_dest->reg,&id_dest->val,id_dest->width);
-}
-     print_asm_template2(sub);
+  
+  rtl_is_sub_carry(&s1,&s0,&id_dest->val);
+  rtl_set_CF(&s1);
+
+  printf("SF: %-2d ZF: %-2d OF: %-2d CF: %-2d\n",reg_f(SF),reg_f(ZF),reg_f(OF),reg_f(CF));
+  id_dest->val=s0;
+  operand_write(id_dest,&id_dest->val);
+  print_asm_template2(sub);
 }
 
 make_EHelper(cmp) {
   //TODO();
   rtl_sub(&s0,&id_dest->val,&id_src->val);
+  
+  rtl_is_sub_carry(&s1,&s0,&id_dest->val);
+  rtl_set_CF(&s1);
+  
   rtl_update_ZFSF(&s0,id_dest->width);
   rtl_is_sub_overflow(&s1,&s0,&id_dest->val,&id_src->val,id_dest->width);
   reg_f(OF)=s1;
-  printf("SF: %-2d ZF: %-2d OF: %-2d\n",reg_f(SF),reg_f(ZF),reg_f(OF));
+  //rtl_is_sub_carry(&s0,id_dest->val-id_src->val,id_dest->val);
+  //reg_f(CF)=s0;
+  printf("SF: %-2d ZF: %-2d OF: %-2d CF: %-2d\n",reg_f(SF),reg_f(ZF),reg_f(OF),reg_f(CF));
   print_asm_template2(cmp);
 }
 
