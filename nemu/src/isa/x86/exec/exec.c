@@ -26,6 +26,7 @@ make_EHelper(inc);
 make_EHelper(pop);
 make_EHelper(adc);
 make_EHelper(or);
+make_EHelper(sar);
 #define make_group(name, item0, item1, item2, item3, item4, item5, item6, item7) \
   static OpcodeEntry concat(opcode_table_, name) [8] = { \
     /* 0x00 */	item0, item1, item2, item3, \
@@ -43,7 +44,7 @@ make_group(gp1,
 /* 0xc0, 0xc1, 0xd0, 0xd1, 0xd2, 0xd3 */
 make_group(gp2,
     EMPTY, EMPTY, EMPTY, EMPTY,
-    EMPTY, EMPTY, EMPTY, EMPTY)
+    EMPTY, EMPTY, EMPTY, EX(sar))
 
 /* 0xf6, 0xf7 */
 make_group(gp3,
