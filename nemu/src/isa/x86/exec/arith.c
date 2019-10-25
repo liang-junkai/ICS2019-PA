@@ -70,6 +70,7 @@ make_EHelper(inc) {
 
 make_EHelper(dec) {
   //TODO();
+  printf("dec: %d\n",id_src->val);
   rtl_sub(&s0,&id_dest->val,&id_src->val);
   rtl_is_sub_overflow(&s1,&s0,&id_dest->val,&id_src->val,id_dest->width);
   rtl_set_OF(&s1);
