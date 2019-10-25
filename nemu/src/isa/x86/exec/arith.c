@@ -57,7 +57,8 @@ make_EHelper(cmp) {
 
 make_EHelper(inc) {
   //TODO();
-  rtl_add(&s0,&id_dest->val,&id_src->val);
+  s1=1;
+  rtl_add(&s0,&id_dest->val,&s1);
   rtl_is_add_overflow(&s1,&s0,&id_dest->val,&id_src->val,id_dest->width);
   rtl_set_OF(&s1);
   rtl_is_sub_carry(&s1,&s0,&id_dest->val);
@@ -70,8 +71,8 @@ make_EHelper(inc) {
 
 make_EHelper(dec) {
   //TODO();
-  printf("dec: %d\n",id_src->val);
-  rtl_sub(&s0,&id_dest->val,&id_src->val);
+  s1=1;
+  rtl_sub(&s0,&id_dest->val,&s1);
   rtl_is_sub_overflow(&s1,&s0,&id_dest->val,&id_src->val,id_dest->width);
   rtl_set_OF(&s1);
   rtl_is_sub_carry(&s1,&s0,&id_dest->val);
