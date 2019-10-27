@@ -53,7 +53,7 @@ void rtl_setcc(rtlreg_t* dest, uint8_t subcode) {
       break;
     }
     case CC_LE:{
-      if(reg_f(SF)!=reg_f(OF)&&reg_f(ZF)==1)*dest=1;
+      if(reg_f(SF)!=reg_f(OF)||reg_f(ZF)==1)*dest=1;
       else *dest=0;
       break;
     }
