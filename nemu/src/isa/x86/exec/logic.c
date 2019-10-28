@@ -16,18 +16,25 @@ make_EHelper(test) {
 
 make_EHelper(and) {
   //TODO();
+  reg_f(CF)=0;
+  reg_f(OF)=0;
   rtl_and(&id_dest->val,&id_dest->val,&id_src->val);
-  assert(id_dest->type==OP_TYPE_REG);
-  rtl_sr(id_dest->reg,&id_dest->val,id_dest->width);
+  //assert(id_dest->type==OP_TYPE_REG);
+  //rtl_sr(id_dest->reg,&id_dest->val,id_dest->width);
+  rtl_update_ZFSF(&id_dest->val,id_dest->width);
+  operand_write(id_dest,&id_dest->val);
   print_asm_template2(and);
 }
 
 make_EHelper(xor) {
   //TODO();
   rtl_xor(&id_dest->val,&id_dest->val,&id_src->val);
-  if(id_dest->type==OP_TYPE_REG){
-	rtl_sr(id_dest->reg,&id_dest->val,id_dest->width);
-}
+  //if(id_dest->type==OP_TYPE_REG){
+	//rtl_sr(id_dest->reg,&id_dest->val,id_dest->width);
+  operand_write(id_dest,&id_dest->val);
+  reg_f(CF)=0;
+  reg_f(OF)=0;
+  rtl_update_ZFSF(&id_dest->val,id_dest->width);
   print_asm_template2(xor);
 }
 
