@@ -36,7 +36,7 @@ void rtl_setcc(rtlreg_t* dest, uint8_t subcode) {
       break;
     }
     case CC_BE:{
-      if(reg_f(CF)==1&&reg_f(ZF)==1){
+      if(reg_f(CF)==1||reg_f(ZF)==1){
         *dest=1;
       }
       else *dest=0;
