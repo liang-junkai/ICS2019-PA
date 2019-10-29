@@ -48,7 +48,9 @@ make_EHelper(ret_imm) {
 }
 
 make_EHelper(call_rm) {
-  TODO();
-
+  //TODO();
+  reg_l(R_ESP)-=4;
+  vaddr_write(reg_l(R_ESP),decinfo.seq_pc,4);
+  rtl_jr(&id_dest->val);
   print_asm("call *%s", id_dest->str);
 }
