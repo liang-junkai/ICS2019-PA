@@ -39,6 +39,8 @@ make_EHelper(idiv);
 make_EHelper(div);
 make_EHelper(jmp);
 make_EHelper(movsx);
+make_EHelper(call_rm);
+make_EHelper(jmp_rm);
 #define make_group(name, item0, item1, item2, item3, item4, item5, item6, item7) \
   static OpcodeEntry concat(opcode_table_, name) [8] = { \
     /* 0x00 */	item0, item1, item2, item3, \
@@ -70,8 +72,8 @@ make_group(gp4,
 
 /* 0xff */
 make_group(gp5,
-    EX(inc), EMPTY, IDEX(E,call), IDEX(E,call),
-    EMPTY, EMPTY, EX(push), EMPTY)
+    EX(inc), EX(dec), EX(call_rm), EX(call),
+    EX(jmp_rm), EX(jmp), EX(push), EMPTY)
 
 /* 0x0f 0x01*/
 make_group(gp7,
