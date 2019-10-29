@@ -50,6 +50,9 @@ static inline void rtl_is_sub_overflow(rtlreg_t* dest,
   else if((int32_t)*src1<0&&(int32_t)*src2>0&&(int32_t)t0>0){
     *dest=1;
   }
+  else if((int32_t)*src1==0&&(int32_t)*src2==0x80000000){
+    *dest=1;
+  }
   else{
     *dest=0;
   }
