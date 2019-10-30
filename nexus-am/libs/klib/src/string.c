@@ -1,5 +1,4 @@
 #include "klib.h"
-
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 size_t strlen(const char *s) {
@@ -20,14 +19,20 @@ char* strcat(char* dst, const char* src) {
 
 int strcmp(const char* s1, const char* s2) {
   while(*s1==*s2){
+    _putc(*s1);
+    _putc(' ');
+    _putc(*s2);
+    _putc('\n');
     if(*s1=='\0'||*s2=='\0')break;
     s1++;
     s2++;
-
   }
-  if(*s1-*s2<0)return -1;
-  return *s1-*s2; 
-  return 0;
+  if(*s1-*s2<0){
+    _putc('l');
+    return -1;
+    }
+    _putc('k');
+  return (int)(*s1-*s2);
 }
 
 int strncmp(const char* s1, const char* s2, size_t n) {
@@ -51,6 +56,7 @@ int memcmp(const void* s1, const void* s2, size_t n){
   }
   if(*(char *)s1-*(char *)s2<0)return -1;
   return *(char *)s1-*(char *)s2;
+  return memcmp(s1,s2,n);
 }
 
 #endif
