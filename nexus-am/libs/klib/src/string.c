@@ -2,7 +2,11 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 size_t strlen(const char *s) {
-  return 0;
+  int len=0;
+  while(s[len]!='\0'){
+    len++;
+  }
+  return len;
 }
 
 char *strcpy(char* dst,const char* src) {
@@ -18,21 +22,13 @@ char* strcat(char* dst, const char* src) {
 }
 
 int strcmp(const char* s1, const char* s2) {
-  while(*s1==*s2){
-    _putc(*s1);
-    _putc(' ');
-    _putc(*s2);
-    _putc('\n');
-    if(*s1=='\0'||*s2=='\0')break;
-    s1++;
-    s2++;
+  for(int i=0;i<strlen(s1)&&i<strlen(s2);i++){
+    if(s1[i]<s2[i])return -1;
+    if(s1[i]>s2[i])return 1;
   }
-  if(*s1-*s2<0){
-    _putc('l');
-    return -1;
-    }
-    _putc('k');
-  return (int)(*s1-*s2);
+  if(strlen(s1)<strlen(s2))return -1;
+  if(strlen(s1)>strlen(s2))return 1;
+  return 0;
 }
 
 int strncmp(const char* s1, const char* s2, size_t n) {
@@ -48,15 +44,13 @@ void* memcpy(void* out, const void* in, size_t n) {
 }
 
 int memcmp(const void* s1, const void* s2, size_t n){
+  char *r1=(char *)s1;
+  char *r2=(char *)s2;
   for(int i=0;i<n;i++){
-    if(*(char*)s1=='\0'||*(char*)s2=='\0')break;
-    if(*(char*)s1!=*(char*)s2)break;
-    s1++;
-    s2++;
+    if(r1[i]>r2[i])return 1;
+    if(r1[i]<r2[i])return -1;
   }
-  if(*(char *)s1-*(char *)s2<0)return -1;
-  return *(char *)s1-*(char *)s2;
-  return memcmp(s1,s2,n);
+  return 0;
 }
 
 #endif
