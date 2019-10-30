@@ -25,6 +25,7 @@ int strcmp(const char* s1, const char* s2) {
     s2++;
 
   }
+  if(*s1-*s2<0)return -1;
   return *s1-*s2; 
   return 0;
 }
@@ -48,6 +49,7 @@ int memcmp(const void* s1, const void* s2, size_t n){
     s1++;
     s2++;
   }
+  if(*(char *)s1-*(char *)s2<0)return -1;
   return *(char *)s1-*(char *)s2;
 }
 
