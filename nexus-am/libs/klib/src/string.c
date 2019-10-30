@@ -25,7 +25,7 @@ int strcmp(const char* s1, const char* s2) {
     s2++;
 
   }
-  return *(uint32_t *)s1-*(uint32_t *)s2; 
+  return *s1-*s2; 
   return 0;
 }
 
