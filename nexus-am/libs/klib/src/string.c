@@ -19,6 +19,13 @@ char* strcat(char* dst, const char* src) {
 }
 
 int strcmp(const char* s1, const char* s2) {
+  while(*s1==*s2){
+    if(*s1=='\0'||*s2=='\0')break;
+    s1++;
+    s2++;
+
+  }
+  return *(uint32_t *)s1-*(uint32_t *)s2; 
   return 0;
 }
 
@@ -35,7 +42,13 @@ void* memcpy(void* out, const void* in, size_t n) {
 }
 
 int memcmp(const void* s1, const void* s2, size_t n){
-  return 0;
+  for(int i=0;i<n;i++){
+    if(*(char*)s1=='\0'||*(char*)s2=='\0')break;
+    if(*(char*)s1!=*(char*)s2)break;
+    s1++;
+    s2++;
+  }
+  return *(char *)s1-*(char *)s2;
 }
 
 #endif
