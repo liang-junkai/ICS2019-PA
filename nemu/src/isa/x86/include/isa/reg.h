@@ -33,6 +33,7 @@ union{
 	rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
 	};
 };
+  vaddr_t pc;
   struct{
 	rtlreg_t CF:1;
 	unsigned:5;
@@ -44,7 +45,7 @@ union{
 	rtlreg_t OF:1;
 	unsigned:20;
 }EFLAGS;
-  vaddr_t pc;
+  
 
 } CPU_state;
 
