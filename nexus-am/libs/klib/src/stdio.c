@@ -20,22 +20,32 @@ static char*number(char *str,long num,int base){
   while(i-->0)*str++=temp[i];
   return str;
 }
+void print(char *str,int n){
+  int i;
+  for(i=0;i<n;i++){
+    _putc(*str++);
+  }
+  _putc('\n');
+}
 int vsprintf(char *out, const char *fmt, va_list args) {
   unsigned long num;
   int len;
   char *str;
   char *s;
   int i;
-  for(str=out;*fmt;fmt++){
+  //int nstr=0;
+  for(str=out;*fmt!='\0';fmt++){
     if(*fmt!='%'){
       *str=*fmt;
       str++;
     }
+    else{
     fmt++;
     switch(*fmt){
       case 'd':
         num=va_arg(args,int);
         str=number(str,num,10);
+        
         continue;
       case 's':
         s = va_arg(args, char *);
@@ -43,20 +53,26 @@ int vsprintf(char *out, const char *fmt, va_list args) {
         len = strlen(s);
         for (i = 0; i < len; ++i) *str++ = *s++;
         continue;
+      default:
+        continue;
     }
-
+  }
   }
   *str='\0';
+  /*for(int j=0;j<strlen(out);j++){
+    _putc(out[j]);
+  }*/
+  //_putc('\n');
   return str-out;
 }
 
 int sprintf(char *out, const char *fmt, ...) {
-  /*va_list args;
+  va_list args;
   int val;
   va_start(args,fmt);
   val=vsprintf(out,fmt,args);
   va_end(args);
-  return val;*/
+  return val;
   return 0;
 }
 
