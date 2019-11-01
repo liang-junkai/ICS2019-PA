@@ -13,7 +13,7 @@ make_EHelper(add) {
 
   rtl_update_ZFSF(&s0,id_dest->width);
   
-  printf("SF: %-2d ZF: %-2d OF: %-2d CF: %-2d\n",reg_f(SF),reg_f(ZF),reg_f(OF),reg_f(CF));
+  //printf("SF: %-2d ZF: %-2d OF: %-2d CF: %-2d\n",reg_f(SF),reg_f(ZF),reg_f(OF),reg_f(CF));
   
   id_dest->val=s0;
   operand_write(id_dest,&id_dest->val);
@@ -33,7 +33,7 @@ make_EHelper(sub) {
   rtl_is_sub_carry(&s1,&s0,&id_dest->val);
   rtl_set_CF(&s1);
 
-  printf("SF: %-2d ZF: %-2d OF: %-2d CF: %-2d\n",reg_f(SF),reg_f(ZF),reg_f(OF),reg_f(CF));
+  //printf("SF: %-2d ZF: %-2d OF: %-2d CF: %-2d\n",reg_f(SF),reg_f(ZF),reg_f(OF),reg_f(CF));
   id_dest->val=s0;
   operand_write(id_dest,&id_dest->val);
   print_asm_template2(sub);
@@ -41,7 +41,7 @@ make_EHelper(sub) {
 
 make_EHelper(cmp) {
   //TODO();
-  printf("val:%d  src:%d\n",id_dest->val,id_src->val);
+  //printf("val:%d  src:%d\n",id_dest->val,id_src->val);
   rtl_sub(&s0,&id_dest->val,&id_src->val);
   
   rtl_is_sub_carry(&s1,&s0,&id_dest->val);
@@ -52,7 +52,7 @@ make_EHelper(cmp) {
   reg_f(OF)=s1;
   //rtl_is_sub_carry(&s0,id_dest->val-id_src->val,id_dest->val);
   //reg_f(CF)=s0;
-  printf("SF: %-2d ZF: %-2d OF: %-2d CF: %-2d\n",reg_f(SF),reg_f(ZF),reg_f(OF),reg_f(CF));
+  //printf("SF: %-2d ZF: %-2d OF: %-2d CF: %-2d\n",reg_f(SF),reg_f(ZF),reg_f(OF),reg_f(CF));
   print_asm_template2(cmp);
 }
 
