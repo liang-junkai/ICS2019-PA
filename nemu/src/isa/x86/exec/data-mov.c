@@ -67,10 +67,16 @@ make_EHelper(cltd) {
 
 make_EHelper(cwtl) {
   if (decinfo.isa.is_operand_size_16) {
-    TODO();
+    rtl_lr(&t0,R_AX,1);
+    rtl_sext(&t0,&t0,1);
+    rtl_sr(R_AX,&t0,1);
+    //TODO();
   }
   else {
-    TODO();
+    rtl_lr(&t0,R_AX,2);
+    rtl_sext(&t0,&t0,2);
+    rtl_sr(R_EAX,&t0,4);
+    //TODO();
   }
 
   print_asm(decinfo.isa.is_operand_size_16 ? "cbtw" : "cwtl");
