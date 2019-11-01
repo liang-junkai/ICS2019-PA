@@ -5,6 +5,15 @@
 
 
 int printf(const char *fmt, ...) {
+  /*va_list args;
+  char *buf1='\0';
+  va_start(args,fmt);
+  int val=sprintf(buf1,fmt,args);
+  va_end(args); 
+  for(int i=0;i<strlen(buf1);i++){
+    _putc(buf1[i]);
+  }
+  return val;*/
   return 0;
 }
 static char* digits="0123456789abcdef";
@@ -73,7 +82,6 @@ int sprintf(char *out, const char *fmt, ...) {
   val=vsprintf(out,fmt,args);
   va_end(args);
   return val;
-  return 0;
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
