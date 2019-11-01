@@ -84,9 +84,9 @@ make_EHelper(setcc) {
 
 make_EHelper(not) {
   //TODO();
-  printf("dest %x \n",id_dest->val);
+  //printf("dest %x \n",id_dest->val);
   id_dest->val=~id_dest->val;
-  printf("~dest %x \n",id_dest->val);
+  //printf("~dest %x \n",id_dest->val);
   
   operand_write(id_dest,&id_dest->val);
   print_asm_template1(not);
