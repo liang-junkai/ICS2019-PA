@@ -5,16 +5,15 @@
 
 
 int printf(const char *fmt, ...) {
-  /*va_list args;
-  char *buf1='\0';
+  va_list args;
+  char buf1[10000];
   va_start(args,fmt);
   int val=sprintf(buf1,fmt,args);
   va_end(args); 
   for(int i=0;i<strlen(buf1);i++){
     _putc(buf1[i]);
   }
-  return val;*/
-  return 0;
+  return val;
 }
 static char* digits="0123456789abcdef";
 //static char* upper_digits="0123456789ABCDEF";
