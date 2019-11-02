@@ -1,6 +1,5 @@
 #include <amtest.h>
 #include <amdev.h>
-
 void rtc_test() {
   _DEV_TIMER_DATE_t rtc;
   int sec = 1;
@@ -11,6 +10,7 @@ void rtc_test() {
     
     if (sec == 1) {
       printf("%d second).\n", sec);
+      
     } else {
       printf("%d seconds).\n", sec);
     }

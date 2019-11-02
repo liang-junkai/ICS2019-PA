@@ -1,6 +1,6 @@
 #include "klib.h"
 #include <stdarg.h>
-
+#include<stdio.h>
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 #define ZEROPAD    1       /* pad with zero */
  #define SIGN   2       /* unsigned/signed long */
@@ -306,6 +306,7 @@ int snprintf(char *out, size_t n, const char *fmt, ...) {
 int printf(const char *fmt, ...) {
   va_list args;
   char buf1[1024];
+  buf1[0]='\0';
   va_start(args,fmt);
   int val=sprintf(buf1,fmt,args);
   va_end(args); 
