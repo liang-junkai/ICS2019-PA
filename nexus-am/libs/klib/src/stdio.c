@@ -113,8 +113,14 @@
             *str++ = c;
     while (i < precision--)
         *str++ = '0';
-    while (i-- > 0)
+    while (i-- > 0){
         *str++ = tmp[i];
+        _putc('l');
+        _putc('j');
+        _putc('k');
+        _putc(tmp[i]);
+        _putc('\n');
+        }
     while (size-- > 0)
         *str++ = ' ';
     return str;
