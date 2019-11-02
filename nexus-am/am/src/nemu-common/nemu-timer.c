@@ -1,11 +1,11 @@
 #include <am.h>
 #include <amdev.h>
 #include <nemu.h>
-static int boot_time;
+static long boot_time;
 size_t __am_timer_read(uintptr_t reg, void *buf, size_t size) {
   switch (reg) {
     case _DEVREG_TIMER_UPTIME: {
-      int now=inl(RTC_ADDR)-boot_time;
+      long now=inl(RTC_ADDR)-boot_time;
       _DEV_TIMER_UPTIME_t *uptime = (_DEV_TIMER_UPTIME_t *)buf;
       uptime->hi = 0;
       uptime->lo =now;
