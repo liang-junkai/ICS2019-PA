@@ -1,6 +1,7 @@
 #include "klib.h"
 #include <stdarg.h>
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
+int vsprintf(char *buf, const char *fmt, va_list args);
 int printf(const char *fmt,...){
     va_list args;
     char buf[1024];
