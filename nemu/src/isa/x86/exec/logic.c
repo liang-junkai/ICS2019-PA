@@ -77,11 +77,90 @@ make_EHelper(sar) {
 make_EHelper(shl) {
   //TODO();
   // unnecessary to update CF and OF in NEMU
+  
   rtl_shl(&s0,&id_dest->val,&id_src->val);
   operand_write(id_dest,&s0);
   print_asm_template2(shl);
 }
-
+make_EHelper(rol){
+  switch(id_dest->width){
+    case 1:{
+      int8_t temp=id_dest->val;
+      for(int i=0;i<id_src->val;i++){
+        s0=temp>>7;
+        temp=(temp<<1)+s0;
+        reg_f(CF)=s0;
+      }
+      s1=temp;
+      break;
+    }
+    case 2:{
+      int16_t temp=id_dest->val;
+      for(int i=0;i<id_src->val;i++){
+        s0=temp>>15;
+        temp=(temp<<1)+s0;
+        reg_f(CF)=s0;
+      }
+      s1=temp;
+      break;
+    }
+    case 4:{
+      int32_t temp=id_dest->val;
+      for(int i=0;i<id_src->val;i++){
+        s0=temp>>31;
+        temp=(temp<<1)+s0;
+        reg_f(CF)=s0;
+      }
+      s1=temp;
+      break;
+    }
+    default: assert(0);
+  }
+  operand_write(id_dest,&s1);
+}
+make_EHelper(ror){
+  switch(id_dest->width){
+    case 1:{
+      int8_t temp=id_dest->val;
+      int8_t x;
+      for(int i=0;i<id_src->val;i++){
+        x=temp&0x01;
+        temp=temp>>1;
+        temp=  x==1?  temp&0xff : temp&0x7f;
+        reg_f(CF)=x;
+      }
+      s1=temp;
+      break;
+    }
+    case 2:{
+      int16_t temp=id_dest->val;
+      int8_t x;
+      for(int i=0;i<id_src->val;i++){
+        x=temp&0x01;
+        temp=temp>>1;
+        temp= x==1? temp&0xffff : temp&0x7fff;
+        reg_f(CF)=x;
+      }
+      s1=temp;
+      break;
+    }
+    case 4:{
+      int32_t temp=id_dest->val;
+      int8_t x;
+      for(int i=0;i<id_src->val;i++){
+        x=temp&0x01;
+        temp=temp>>1;
+        temp= x==1? temp&0xffffffff : temp&0x7fffffff;
+        reg_f(CF)=x;
+      }
+      s1=temp;
+      break;
+    }
+    default:assert(0);
+  }
+  operand_write(id_dest,&s1);
+  print_asm_template2(ror);
+}
 make_EHelper(shr) {
   //TODO();
   // unnecessary to update CF and OF in NEMU
