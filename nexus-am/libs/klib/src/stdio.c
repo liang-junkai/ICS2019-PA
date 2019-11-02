@@ -5,7 +5,7 @@
 
 
 int printf(const char *fmt, ...) {
-  va_list args;
+  /*va_list args;
   char buf1[10000];
   va_start(args,fmt);
   int val=sprintf(buf1,fmt,args);
@@ -13,7 +13,8 @@ int printf(const char *fmt, ...) {
   for(int i=0;i<strlen(buf1);i++){
     _putc(buf1[i]);
   }
-  return val;
+  return val;*/
+  return 0;
 }
 static char* digits="0123456789abcdef";
 //static char* upper_digits="0123456789ABCDEF";
