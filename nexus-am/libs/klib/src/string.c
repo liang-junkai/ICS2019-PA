@@ -8,7 +8,12 @@ size_t strlen(const char *s) {
   }
   return len;
 }
+size_t strnlen(const char* s,size_t count){
+  const char *sc;
 
+    for (sc = s; count-- && *sc != '\0'; ++sc);
+    return sc - s;
+}
 char *strcpy(char* dst,const char* src) {
   int i=0;
   for(i=0;i<strlen(src);i++){
