@@ -46,6 +46,7 @@ make_EHelper(sbb);
 make_EHelper(in);
 make_EHelper(out);
 make_EHelper(cwtl);
+make_EHelper(neg);
 #define make_group(name, item0, item1, item2, item3, item4, item5, item6, item7) \
   static OpcodeEntry concat(opcode_table_, name) [8] = { \
     /* 0x00 */	item0, item1, item2, item3, \
@@ -67,7 +68,7 @@ make_group(gp2,
 
 /* 0xf6, 0xf7 */
 make_group(gp3,
-    IDEX(test_I,test), EMPTY, EX(not), EMPTY,
+    IDEX(test_I,test), EX(neg), EX(not), EMPTY,
     EX(mul), EX(imul1), EX(div), EX(idiv))
 
 /* 0xfe */
