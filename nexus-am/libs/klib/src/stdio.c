@@ -25,9 +25,9 @@ int printf(const char *fmt, ...) {
   }
   return val;
 }
-static char* digits="0123456789abcdef";
+//static char* digits="0123456789abcdef";
 //static char* upper_digits="0123456789ABCDEF";
-static char*number(char *str,long num,int base){
+/*static char*number(char *str,long num,int base){
   char temp[100];
   char *dig=digits;
   int i=0;
@@ -37,7 +37,7 @@ static char*number(char *str,long num,int base){
   }
   while(i-->0)*str++=temp[i];
   return str;
-}
+}*/
 void print(char *str,int n){
   int i;
   for(i=0;i<n;i++){
@@ -45,43 +45,67 @@ void print(char *str,int n){
   }
   _putc('\n');
 }
-int vsprintf(char *out, const char *fmt, va_list args) {
-  unsigned long num;
-  int len;
-  char *str;
+int vsprintf(char *out, const char *fmt, va_list ap) {
+  unsigned long n;
   char *s;
-  int i;
-  //int nstr=0;
-  for(str=out;*fmt!='\0';fmt++){
-    if(*fmt!='%'){
-      *str=*fmt;
-      str++;
-    }
-    else{
-    fmt++;
-    switch(*fmt){
-      case 'd':
-        num=va_arg(args,int);
-        str=number(str,num,10);
-        
-        continue;
-      case 's':
-        s = va_arg(args, char *);
-        if (!s) s = "<NULL>";
-        len = strlen(s);
-        for (i = 0; i < len; ++i) *str++ = *s++;
-        continue;
-      default:
-        continue;
-    }
+  char *str=out;
+  int qualifier=-1;
+  while(*fmt!='\0'){
+      if(*fmt!='%'){
+          *str=*fmt;
+          str++;
+          fmt++;
+          continue;
+      }
+      fmt++;
+      if(*fmt=='l'){
+          qualifier=*fmt;
+          fmt++;
+      }
+      switch(*fmt){
+          case 's':
+            s=va_arg(ap,char *);
+            int len=strlen(s);
+            for(int i=0;i<len;i++){
+                *str=*s;
+                str++;
+                s++;
+
+            }
+            break;
+          case 'd':
+            if(qualifier=='l'){
+                n=va_arg(ap,unsigned long);
+                }
+                else{
+                    n=va_arg(ap,int);
+                }
+                char num[100];
+                int s1=0;
+                while(n>0){
+                    int t=n%10;
+                    n=n/10;
+                    num[s1]=t+48;
+                    s1++;
+                }
+                s1--;
+                while(s1>=0){
+                    *str=num[s1];
+                    str++;
+                    s1--;
+                }
+                break;
+            case 'c':
+                *str=(unsigned char)va_arg(ap,int);
+                str++;
+                break;
+            default:
+                break;
+      }
+        fmt++;
   }
-  }
-  *str='\0';
-  for(int j=0;j<strlen(out);j++){
-    _putc(out[j]);
-  }
-  //_putc('\n');
- return str-out;
+    *str='\0';
+    return str-out;
 }
 
 
