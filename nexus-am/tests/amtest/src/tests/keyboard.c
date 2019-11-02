@@ -1,6 +1,5 @@
 #include <amtest.h>
 #include <amdev.h>
-
 #define NAME(key) \
   [_KEY_##key] = #key,
 
