@@ -20,7 +20,7 @@ int printf(const char *fmt, ...) {
   va_start(args,fmt);
   int val=sprintf(buf1,fmt,args);
   va_end(args); 
-  for(int i=0;i<strlen(buf1);i++){
+  for(int i=0;buf1[i]!='\0';i++){
     _putc(buf1[i]);
   }
   return val;
