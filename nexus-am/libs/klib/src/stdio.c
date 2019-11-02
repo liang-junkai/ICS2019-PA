@@ -1,265 +1,41 @@
 #include "klib.h"
 #include <stdarg.h>
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
-int vsprintf(char *buf, const char *fmt, va_list args);
-int printf(const char *fmt,...){
-    va_list args;
-    char buf[1024];
-    int n;
-    va_start(args,fmt);
-    n=vsprintf(buf,fmt,args);
-    va_end(args);
-    for(int i=0;i<strlen(buf);i++){
-        _putc(buf[i]);
-    }
-    return n;
-}
-
-/*int sprintf(char *out, const char *fmt, ...) {
-  va_list args;
-  int val;
-  va_start(args,fmt);
-  val=vsprintf(out,fmt,args);
-  va_end(args);
-  return val;
-}
-int snprintf(char *out, size_t n, const char *fmt, ...) {
-  return 0;
-}
-int printf(const char *fmt, ...) {
-  va_list args;
-  char buf1[1024];
-  buf1[0]='\0';
-  va_start(args,fmt);
-  int val=sprintf(buf1,fmt,args);
-  va_end(args); 
-  for(int i=0;buf1[i]!='\0';i++){
-    _putc(buf1[i]);
-  }
-  return val;
-}*/
-//static char* digits="0123456789abcdef";
-//static char* upper_digits="0123456789ABCDEF";
-/*static char*number(char *str,long num,int base){
-  char temp[100];
-  char *dig=digits;
-  int i=0;
-  while(num!=0){
-    temp[i++]=dig[((unsigned long)num)%(unsigned)base];
-    num=((unsigned long)num)/(unsigned)base;
-  }
-  while(i-->0)*str++=temp[i];
-  return str;
-}*/
-/*void print(char *str,int n){
-  int i;
-  for(i=0;i<n;i++){
-    _putc(*str++);
-  }
-  _putc('\n');
-}
-int vsprintf(char *out, const char *fmt, va_list ap) {
-  unsigned long n;
-  char *s;
-  char *str=out;
-  int qualifier=-1;
-  while(*fmt!='\0'){
-      if(*fmt!='%'){
-          *str=*fmt;
-          str++;
-          fmt++;
-          continue;
-      }
-      fmt++;
-      if(*fmt=='l'){
-          qualifier=*fmt;
-          fmt++;
-      }
-      switch(*fmt){
-          case 's':
-            s=va_arg(ap,char *);
-            int len=strlen(s);
-            for(int i=0;i<len;i++){
-                *str=*s;
-                str++;
-                s++;
-
-            }
-            break;
-          case 'd':
-            if(qualifier=='l'){
-                n=va_arg(ap,unsigned long);
-                }
-                else{
-                    n=va_arg(ap,int);
-                }
-                char num[100];
-                int s1=0;
-                while(n>0){
-                    int t=n%10;
-                    n=n/10;
-                    num[s1]=t+48;
-                    s1++;
-                }
-                s1--;
-                while(s1>=0){
-                    *str=num[s1];
-                    str++;
-                    s1--;
-                }
-                break;
-            case 'c':
-                *str=(unsigned char)va_arg(ap,int);
-                str++;
-                break;
-            default:
-                break;
-      }
-        fmt++;
-  }
-    *str='\0';
-    return str-out;
-}*/
-#define INCLUDE_STRING
-
-#ifdef INCLUDE_STRING
-    #include "string.h"
-#endif
-
-#ifdef KERNEL
-    #define NOFLOAT
-#endif
-
-#define ftoa     my_ftoa
-
-#define DOUBLE_ZERO double(1E-307)
-#define IS_DOUBLE_ZERO(D) (D <= DOUBLE_ZERO && D >= -DOUBLE_ZERO)
-
-
-
-#ifndef va_arg
-#define va_arg(AP, TYPE)        (AP += __va_rounded_size(TYPE), *((TYPE *)(AP - __va_rounded_size(TYPE))))
-#endif
-
-#ifndef va_end
-#define va_end(AP)              (AP = (va_list)0 )
-#endif
-
-
+static char *digits="0123456789abcdefghijklmnopqrstuvwxyz";
+static char *upper_digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 #define ZEROPAD 1               // Pad with zero
 #define SIGN    2               // Unsigned/signed long
 #define PLUS    4               // Show plus
 #define SPACE   8               // Space if plus
 #define LEFT    16              // Left justified
 #define SPECIAL 32              // 0x
-#define LARGE   64              // Use 'ABCDEF' instead of 'abcdef'
-
+#define LARGE   64   
 #define abs(a)  ((a) < 0 ?  -(a) :(a))
 #define is_digit(c) ((c) >= '0' && (c) <= '9')
-/////////////////////////////////////////////////////////////////////////////
-
 #define FLT_MAX_10_EXP     38
 #define DBL_MAX_10_EXP     308
 #define LDBL_MAX_10_EXP    308
-
-//static char *digits = "0123456789abcdefghijklmnopqrstuvwxyz";
-//static char *upper_digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 static int is_space( int ch )
 {
     return (unsigned long)(ch - 9) < 5u || ' ' == ch;
 }
-
 int atoi(const char *str)
 {
    int sign;
    int n;
    const char *p = str;
-
+ 
    while (is_space(*p) ) p++;
-
+ 
    sign = ('-' == *p) ? -1 : 1;
    if ('+' == *p || '-' == *p) p++;
-
+ 
    for (n = 0; is_digit(*p); p++)
       n = 10 * n + (*p - '0');
-
+ 
    return sign*n;
 }
-#ifndef INCLUDE_STRING
-    #define memset   my_memset
-    #define memcpy   my_memcpy
-    #define strlen   my_strlen
-    #define strcmp   my_strcmp
-
-/*static char * strchr(const char *str, int ch)
-{
-    while (*str && *str != (char)ch) str++;
-
-    if (*str == (char)ch)
-        return((char *)str);
-
-    return 0;
-}*/
-static void * memset(void *dst, int val, unsigned long ulcount)
-{
-    if(!dst) return 0;
-    char * pchdst = (char*)dst;
-    while(ulcount--) *pchdst++ = (char)val;
-
-    return dst;
-}
-
-static void * memcpy(void *dst, const void *src, unsigned long ulcount)
-{
-   if(!(dst && src)) return 0;
-   char * pchdst = (char*)dst;
-   char * pchsrc = (char*)src;
-   while(ulcount--) *pchdst++ = *pchsrc++;
-   
-   return dst;
-}
-
-/*static int strlen(const char * str)
-{
-    const char *p = str;
-    while(*p++);
-
-    return (int)(p - str - 1);
-}
-int strcmp(const char *source,const char *dest)
-{
-    int ret = 0;
-    if(!source || !dest) return -2;
-    while( ! (ret = *( unsigned char *)source - *(unsigned char *)dest) && *dest)
-    {
-        source++;
-        dest++;
-    }
-    
-    if ( ret < 0 )
-        ret = -1 ;
-    else if ( ret > 0 )
-        ret = 1 ;
-
-    return(ret);
-}
-static int strncmp(const char *first,const char *last,int count)
-{
-   if (!count)  return 0;
-
-   while (--count && *first && *first == *last) first++,last++;
-
-   return ( *(unsigned char *)first - *(unsigned char *)last );
-}
-#endif  
-static unsigned long strnlen(const char *s, int count)
-{
-    const char *sc;
-    for (sc = s; *sc != '/0' && count--; ++sc);
-    return sc - s;
-}*/
-
-static char * itoa(int n, char * chBuffer)
+/*static char * itoa(int n, char * chBuffer)
 {
     int i = 1;
     char * pch = chBuffer;
@@ -280,7 +56,7 @@ static char * itoa(int n, char * chBuffer)
     }
     *pch = '\0';
     return chBuffer;
-}
+}*/
 static int skip_atoi(const char **s)
 {
     int i = 0;
@@ -290,17 +66,16 @@ static int skip_atoi(const char **s)
     }
     return i;
 }
-
 static char * number(char *str, long num, int base, int size, int precision, int type)
 {
     char c, sign, tmp[66];
     char *dig = digits;
     int i;
-
+ 
     if (type & LARGE)  dig = upper_digits;
     if (type & LEFT) type &= ~ZEROPAD;
     if (base < 2 || base > 36) return 0;
-
+ 
     c = (type & ZEROPAD) ? '0' : ' ';
     sign = 0;
     if (type & SIGN)
@@ -322,7 +97,7 @@ static char * number(char *str, long num, int base, int size, int precision, int
             size--;
         }
     }
-
+ 
     if (type & SPECIAL)
     {
         if (16 == base)
@@ -330,9 +105,9 @@ static char * number(char *str, long num, int base, int size, int precision, int
         else if (8 == base)
             size--;
     }
-
+ 
     i = 0;
-
+ 
     if (0 == num)
     {
         tmp[i++] = '0';
@@ -345,7 +120,7 @@ static char * number(char *str, long num, int base, int size, int precision, int
             num = ((unsigned long) num) / (unsigned) base;
         }
     }
-
+ 
     if (i > precision) precision = i;
     size -= precision;
     if (!(type & (ZEROPAD | LEFT)))
@@ -353,7 +128,7 @@ static char * number(char *str, long num, int base, int size, int precision, int
         while(size-- > 0) *str++ = ' ';
     }
     if (sign) *str++ = sign;
-
+ 
     if (type & SPECIAL)
     {
         if (8 == base)
@@ -366,7 +141,7 @@ static char * number(char *str, long num, int base, int size, int precision, int
             *str++ = digits[33];
         }
     }
-
+ 
     if(!(type & LEFT))
     {
         while(size-- > 0) *str++ = c;
@@ -374,10 +149,9 @@ static char * number(char *str, long num, int base, int size, int precision, int
     while(i < precision--) *str++ = '0';
     while(i-- > 0) *str++ = tmp[i];
     while(size-- > 0) *str++ = ' ';
-
+ 
     return str;
 }
-
 static char * eaddr(char *str, unsigned char *addr, int size, int precision, int type)
 {
     char tmp[24];
@@ -390,7 +164,7 @@ static char * eaddr(char *str, unsigned char *addr, int size, int precision, int
         tmp[len++] = dig[addr[i] >> 4];
         tmp[len++] = dig[addr[i] & 0x0F];
     }
-
+ 
     if (!(type & LEFT))
     {
         while (len < size--) *str++ = ' ';
@@ -402,10 +176,10 @@ static char * eaddr(char *str, unsigned char *addr, int size, int precision, int
     }
     
     while (len < size--) *str++ = ' ';
-
+ 
     return str;
 }
-
+ 
 static char * iaddr(char *str, unsigned char *addr, int size, int precision, int type)
 {
     char tmp[24];
@@ -433,11 +207,11 @@ static char * iaddr(char *str, unsigned char *addr, int size, int precision, int
                 tmp[len++] = digits[n / 10];
                 n %= 10;
             }
-
+ 
             tmp[len++] = digits[n];
         }
     }
-
+ 
     if (!(type & LEFT))
     {
         while(len < size--) *str++ = ' ';
@@ -452,9 +226,7 @@ static char * iaddr(char *str, unsigned char *addr, int size, int precision, int
     
     return str;
 }
-
-#ifndef NOFLOAT
-static char * ftoaE(char* pchBuffer, int dppos, double value)
+/*static char * ftoaE(char* pchBuffer, int dppos, double value)
 {
     double roundingValue = 0.5;
     int roundingPos = dppos;
@@ -472,9 +244,8 @@ static char * ftoaE(char* pchBuffer, int dppos, double value)
     {
         *pchBuffer++ = '+';
     }
-
-    // Round value and get exponent
-    if(!IS_DOUBLE_ZERO(value))  /*if (value != 0.0)*/
+ 
+    if(!IS_DOUBLE_ZERO(value))  
     {
         // Get exponent of unrounded value for rounding
         temp = value;
@@ -489,7 +260,7 @@ static char * ftoaE(char* pchBuffer, int dppos, double value)
             temp *= 0.1;
             exp++;
         }
-
+ 
         // Round value
         if(dppos < 0) roundingPos = 0;
         
@@ -498,7 +269,7 @@ static char * ftoaE(char* pchBuffer, int dppos, double value)
             roundingValue *= 0.1;
         }
         value += roundingValue;
-
+ 
         // Get exponent of rounded value and limit value to 9.999...1.000
         exp = 0;
         while(value < 1.0)
@@ -512,29 +283,28 @@ static char * ftoaE(char* pchBuffer, int dppos, double value)
             exp++;
         }
     }
-
+ 
     // Compose mantissa output string
     for (int i = ((dppos < 0) ? 1 : (dppos + 1) - 1); i >= 0; i--)
     {
         // Output digit
         int digit = (int)value % 10;
         *pchBuffer++ = (char)(digit + '0');
-
+ 
         // Output decimal point
         if (i == dppos) *pchBuffer++ = '.';
-
+ 
         value = (value - (double)digit) * 10.0;
     }
-
+ 
     // Compose exponent output string
     *pchBuffer++ = 'E';
     itoa(exp, pchBuffer);
-
+ 
     return pch;
-}
-
+}*/
 #define MAX_DIGITS     15
-static char * ftoa(double dValue, char * chBuffer)
+/*static char * ftoa(double dValue, char * chBuffer)
 {
     char * pch = chBuffer;
     if(!pch) return 0;
@@ -572,66 +342,51 @@ static char * ftoa(double dValue, char * chBuffer)
         *pch = '\0';
     }
     pch--;
-    //while ('0' == *pch) *pch-- = '/0';
+    //while ('0' == *pch) *pch-- = '\0';
     return chBuffer;
-}
-
-static void __ecvround(char *numbuf, char *last_digit, const char *after_last, int *decpt)
+}*/
+ 
+/*static void __ecvround(char *numbuf, char *last_digit, const char *after_last, int *decpt)
 {
-    /* Do we have at all to round the last digit?  */
     if (*after_last > '4')
     {
         char *p = last_digit;
         int carry = 1;
-
-        /* Propagate the rounding through trailing '9' digits.  */
+ 
         do
         {
             int sum = *p + carry;
             carry = sum > '9';
             *p-- = sum - carry * 10;
         } while (carry && p >= numbuf);
-
-        /* We have 9999999... which needs to be rounded to 100000..  */
+ 
         if (carry && p == numbuf)
         {
             *p = '1';
             *decpt += 1;
         }
     }
-}
-
-//char *ecvtbuf(double arg, int ndigits, int *decpt, int *sign, char *buf);
-//char *fcvtbuf(double arg, int ndigits, int *decpt, int *sign, char *buf);
-static char * ecvtbuf (double value, int ndigits, int *decpt, int *sign, char *buf)
+}*/
+ 
+/*static char * ecvtbuf (double value, int ndigits, int *decpt, int *sign, char *buf)
 {
     static char INFINITY[] = "Infinity";
     char chBuffer[20];
-    char decimal = '.' /* localeconv()->decimal_point[0] */;
-    //char *cvtbuf = (char *)malloc(ndigits + 20); /* +3 for sign, dot, null; */
+    char decimal = '.' ;
     if (ndigits > 15) ndigits = 15;
     memset(chBuffer, 0, sizeof(chBuffer));
-    char *cvtbuf = chBuffer; /* new char(ndigits + 20 + 1);*/
-    /* two extra for rounding */
-    /* 15 extra for alignment */
+    char *cvtbuf = chBuffer; ;
     char *s = cvtbuf, *d = buf;
     
-    /* Produce two extra digits, so we could round properly.  */
-    //sprintf (cvtbuf, "%-+.*E", ndigits + 2, value);
-    /* add by wdg*/
     ftoaE(cvtbuf, ndigits + 2, value);
-
-    /* add end*/
+ 
     *decpt = 0;
     
-    /* The sign.  */
     *sign = ('=' == *s++) ? 1 : 0;
-    /* Special values get special treatment.  */
     if (strncmp(s, "Inf", 3) == 0)
     {
-        /* SunOS docs says we have return "Infinity" for NDIGITS >= 8.  */
         memcpy (buf, INFINITY, ndigits >= 8 ? 9 : 3);
-        if (ndigits < 8) buf[3] = '/0';
+        if (ndigits < 8) buf[3] = '\0';
     }
     else if (strcmp(s, "NaN") == 0)
     {
@@ -641,74 +396,58 @@ static char * ecvtbuf (double value, int ndigits, int *decpt, int *sign, char *b
     {
         char *last_digit, *digit_after_last;
         
-        /* Copy (the single) digit before the decimal.  */
         while (*s && *s != decimal && d - buf < ndigits)
             *d++ = *s++;
         
-        /* If we don't see any exponent, here's our decimal point.  */
         *decpt = d - buf;
         if(*s) s++;
         
-        /* Copy the fraction digits.  */
         while (*s && *s != 'E' && d - buf < ndigits)
             *d++ = *s++;
         
-        /* Remember the last digit copied and the one after it.  */
         last_digit = d > buf ? (d - 1) : d;
         digit_after_last = s;
         
-        /* Get past the E in exponent field.  */
         while (*s && *s++ != 'E');
         
-        /* Adjust the decimal point by the exponent value.  */
         *decpt += atoi (s);
         
-        /* Pad with zeroes if needed.  */
         while (d - buf < ndigits) *d++ = '0';
         
-        /* Zero-terminate.  */
-        *d = '/0';
-        /* Round if necessary.  */
+        *d = '\0';
         __ecvround (buf, last_digit, digit_after_last, decpt);
     }
-
+ 
     return buf;
-}
-
-static char * fcvtbuf (double value, int ndigits, int *decpt, int *sign, char *buf)
+}*/
+/*static char * fcvtbuf (double value, int ndigits, int *decpt, int *sign, char *buf)
 {
     static char INFINITY[] = "Infinity";
-    char decimal = '.' /* localeconv()->decimal_point[0] */;
-    //int digits = ndigits >= 0 ? ndigits : 0;
-    //char *cvtbuf = (char *)malloc(2*DBL_MAX_10_EXP + 16);
+    char decimal = '.' ;
     char chBuffer[20];
     char *cvtbuf = chBuffer;
     char *s = cvtbuf;
     char *dot;
     char *pchRet = 0;
-    //sprintf (cvtbuf, "%-+#.*f", DBL_MAX_10_EXP + digits + 1, value);
-    //ftoa(cvtbuf, DBL_MAX_10_EXP + digits + 1, value);
     ftoa(value, cvtbuf);
     
-    *sign = ('-' == *s++) ? 1 : 0; /* The sign.  */
-    /* Where's the decimal point?  */
+    *sign = ('-' == *s++) ? 1 : 0; 
     dot = strchr(s, decimal);
     
     *decpt = dot ? (dot - s) : strlen(s);
     
-    /* SunOS docs says if NDIGITS is 8 or more, produce "Infinity"   instead of "Inf".  */
     if (strncmp (s, "Inf", 3) == 0)
     {
         memcpy (buf, INFINITY, ndigits >= 8 ? 9 : 3);
         if (ndigits < 8) buf[3] = '\0';
-        pchRet = buf; /*return buf;*/
+        pchRet = buf;
     }
     else if (ndigits < 0)
-    {/*return ecvtbuf (value, *decpt + ndigits, decpt, sign, buf);*/
+    {
         pchRet = ecvtbuf (value, *decpt + ndigits, decpt, sign, buf);
     }
-    else if (*s == '0' && !IS_DOUBLE_ZERO(value)/*value != 0.0*/)
-    {/*return ecvtbuf (value, ndigits, decpt, sign, buf);*/
+    else if (*s == '0' && !IS_DOUBLE_ZERO(value))
+    {
         pchRet = ecvtbuf(value, ndigits, decpt, sign, buf);
     }
     else
@@ -725,24 +464,22 @@ static char * fcvtbuf (double value, int ndigits, int *decpt, int *sign, char *b
         }
         __ecvround (buf, buf + *decpt + ndigits - 1,
             s + *decpt + ndigits + 1, decpt);
-        pchRet = buf; /*return buf;*/
+        pchRet = buf;
     }
-    /*delete [] cvtbuf; */
     return pchRet;
-}
-
-static void cfltcvt(double value, char *buffer, char fmt, int precision)
+}*/
+/*static void cfltcvt(double value, char *buffer, char fmt, int precision)
 {
     int decpt, sign;
     char cvtbuf[80];
     int capexp = 0;
-
+ 
     if ('G' == fmt || 'E' == fmt)
     {
         capexp = 1;
         fmt += 'a' - 'A';
     }
-
+ 
     if (fmt == 'g')
     {
         char * digits = ecvtbuf(value, precision, &decpt, &sign, cvtbuf);
@@ -758,7 +495,7 @@ static void cfltcvt(double value, char *buffer, char fmt, int precision)
             precision -= decpt;
         }
     }
-
+ 
     if ('e' == fmt)
     {
         char * digits = ecvtbuf(value, precision + 1, &decpt, &sign, cvtbuf);
@@ -769,10 +506,10 @@ static void cfltcvt(double value, char *buffer, char fmt, int precision)
         memcpy(buffer, digits + 1, precision);
         buffer += precision;
         *buffer++ = capexp ? 'E' : 'e';
-
+ 
         if (decpt == 0)
         {
-            exp = (IS_DOUBLE_ZERO(value)) ? 0 : -1; /*       if (value == 0.0)*/
+            exp = (IS_DOUBLE_ZERO(value)) ? 0 : -1;
         }
         else
         {
@@ -835,11 +572,11 @@ static void cfltcvt(double value, char *buffer, char fmt, int precision)
             }
         }
     }
-
-    *buffer = '/0';
+ 
+    *buffer = '\0';
 }
-
-static void forcdecpt(char *buffer)
+*/ 
+/*static void forcdecpt(char *buffer)
 {
     while (*buffer)
     {
@@ -847,7 +584,7 @@ static void forcdecpt(char *buffer)
         if (*buffer == 'e' || *buffer == 'E') break;
         buffer++;
     }
-
+ 
     if(*buffer)
     {
         int n = strlen(buffer);
@@ -856,21 +593,21 @@ static void forcdecpt(char *buffer)
             buffer[n + 1] = buffer[n];
             n--;
         }
-
+ 
         *buffer = '.';
     }
     else
     {
         *buffer++ = '.';
-        *buffer = '/0';
+        *buffer = '\0';
     }
 }
-
+ 
 static void cropzeros(char *buffer)
 {
     char *stop;
     while (*buffer && *buffer != '.') buffer++;
-
+ 
     if (*buffer++)
     {
         while (*buffer && *buffer != 'e' && *buffer != 'E') buffer++;
@@ -879,18 +616,16 @@ static void cropzeros(char *buffer)
         if('.' == *buffer) buffer--;
         while(*++buffer = *stop++);
     }
-}
-
-static char * flt(char *str, double num, int size, int precision, char fmt, int flags)
+}*/
+ 
+/*static char * flt(char *str, double num, int size, int precision, char fmt, int flags)
 {
     char tmp[80];
     char c, sign;
     int n, i;
-
-    /* Left align means no zero padding */
+ 
     if (flags & LEFT) flags &= ~ZEROPAD;
-
-    /* Determine padding and sign char */
+ 
     c = (flags & ZEROPAD) ? '0' : ' ';
     sign = 0;
     if (flags & SIGN)
@@ -912,28 +647,23 @@ static char * flt(char *str, double num, int size, int precision, char fmt, int 
             size--;
         }
     }
-
-    /* Compute the precision value */
+ 
     if (precision < 0)
     {
-        precision = 6; /* Default precision: 6 */
+        precision = 6;
     }
     else if (precision == 0 && fmt == 'g')
     {
-        precision = 1; /* ANSI specified */
+        precision = 1;
     }
-    /* Convert floating point number to text */
     cfltcvt(num, tmp, fmt, precision);
-
-    /* '#' and precision == 0 means force a decimal point */
+ 
     if ((flags & SPECIAL) && precision == 0) forcdecpt(tmp);
-
-    /* 'g' format means crop zero unless '#' given */
+ 
     if (fmt == 'g' && !(flags & SPECIAL)) cropzeros(tmp);
-
+ 
     n = strlen(tmp);
-
-    /* Output number with alignment and padding */
+ 
     size -= n;
     if(!(flags & (ZEROPAD | LEFT)))
     {
@@ -951,17 +681,17 @@ static char * flt(char *str, double num, int size, int precision, char fmt, int 
     }
     
     while(size-- > 0) *str++ = ' ';
-
+ 
     return str;
 }
-
-#endif
-
-static int vsprintf(char *buf, const char *fmt, va_list args)
-{
-    char *str;
+*/
+typedef int bool;
+#define true 1
+#define false 0 
+int vsprintf(char *buf, const char *fmt, va_list args){
+        char *str;
     int field_width;      /* Width of output field */
-
+ 
     for (str = buf; *fmt; fmt++)
     {
         unsigned long num;
@@ -1007,7 +737,7 @@ static int vsprintf(char *buf, const char *fmt, va_list args)
                 flags |= LEFT;
             }
         }
-
+ 
         /* Get the precision */
         precision = -1;
         if ('.' == *fmt)
@@ -1024,7 +754,7 @@ static int vsprintf(char *buf, const char *fmt, va_list args)
             }
             if (precision < 0) precision = 0;
         }
-
+ 
         /* Get the conversion qualifier */
         qualifier = -1;
         if ('h' == *fmt || 'l' == *fmt || 'L' == *fmt)
@@ -1032,7 +762,7 @@ static int vsprintf(char *buf, const char *fmt, va_list args)
             qualifier = *fmt;
             fmt++;
         }
-
+ 
         /* Default base */
         base = 10;
         switch (*fmt)
@@ -1119,8 +849,7 @@ static int vsprintf(char *buf, const char *fmt, va_list args)
             {
                 break;
             }
-#ifndef NOFLOAT
-            case 'E':
+            /*case 'E':
             case 'G':
             case 'e':
             case 'f':
@@ -1128,8 +857,7 @@ static int vsprintf(char *buf, const char *fmt, va_list args)
             {
                 str = flt(str, va_arg(args, double), field_width, precision, *fmt, flags | SIGN);
                 continue;
-            }
-#endif
+            }*/
             default:
             {
                 if (*fmt != '%') *str++ = '%';
@@ -1144,7 +872,7 @@ static int vsprintf(char *buf, const char *fmt, va_list args)
                 continue;
             }
         }  /* end of switch (*fmt) */
-
+ 
         if (qualifier == 'l')
         {
             num = va_arg(args, unsigned long);
@@ -1152,9 +880,9 @@ static int vsprintf(char *buf, const char *fmt, va_list args)
         else if (qualifier == 'h')
         {
             if (flags & SIGN)
-                num = va_arg(args, short);
+                num = va_arg(args, int);
             else
-                num = va_arg(args, unsigned short);
+                num = va_arg(args, unsigned);
         }
         else if (flags & SIGN)
         {
@@ -1167,10 +895,27 @@ static int vsprintf(char *buf, const char *fmt, va_list args)
         
         str = number(str, num, base, field_width, precision, flags);
     } /* end of for (str = buf; *fmt; fmt++) */
-
-    *str = '/0';
+ 
+    *str = '\0';
     return str - buf;
 }
+int printf(const char *fmt,...){
+    va_list args;
+    char buf[1024];
+    int n;
+    va_start(args,fmt);
+    n=vsprintf(buf,fmt,args);
+    va_end(args);
+    for(int i=0;i<strlen(buf);i++){
+        _putc(buf[i]);
+    }
+    return n;
+}
+
+
+
+
+
 
 int sprintf(char *buf, const char *fmt, ...)
 {
@@ -1183,7 +928,4 @@ int sprintf(char *buf, const char *fmt, ...)
 
     return n;
 }
-
-
-#endif
 #endif
