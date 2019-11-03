@@ -27,11 +27,15 @@ static inline void update_screen() {
   SDL_RenderCopy(renderer, texture, NULL, NULL);
   SDL_RenderPresent(renderer);
 }
-
+extern  uint32_t inl(int port);
 static void vga_io_handler(uint32_t offset, int len, bool is_write) {
   // TODO: call `update_screen()` when writing to the sync register
   //TODO();
-  //update_screen();
+   if(!is_write){
+    unsigned long color=inl(VMEM);
+    screensize_port_base[0]=color;
+  }
+  
 }
 
 void init_vga() {
