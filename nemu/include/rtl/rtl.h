@@ -156,7 +156,7 @@ static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   //TODO();msb
 }
 
-static inline void rtl_setrelopi(uint32_t relop, rtlreg_t *dest,
+/*static inline*/ void rtl_setrelopi(uint32_t relop, rtlreg_t *dest,
     const rtlreg_t *src1, int imm) {
   rtl_li(&ir, imm);
   rtl_setrelop(relop, dest, src1, &ir);
