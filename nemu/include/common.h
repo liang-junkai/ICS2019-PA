@@ -3,13 +3,12 @@
 
 //#define DEBUG
 //#define DIFF_TEST
-
+volatile static int dummy;
 #if _SHARE
 // do not enable these features while building a reference design
 #undef DIFF_TEST
 #undef DEBUG
 #endif
-volatile static int dummy;
 /* You will define this macro in PA2 */
 #define HAS_IOE
 
