@@ -16,7 +16,7 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
     if(ref_r->esp!=cpu.esp)printf("->");
     printf("r.esp: %-8x  cpu.esp: %-8x\n",ref_r->esp,cpu.esp);
     if(ref_r->ebp!=cpu.ebp)printf("->");
-    printf("r.ebp: %-8x  cpu.esp: %-8x\n",ref_r->ebp,cpu.ebp);
+    printf("r.ebp: %-8x  cpu.ebp: %-8x\n",ref_r->ebp,cpu.ebp);
     if(ref_r->esi!=cpu.esi)printf("->");
     printf("r.esi: %-8x  cpu.esi: %-8x\n",ref_r->esi,cpu.esi);
     if(ref_r->edi!=cpu.edi)printf("->");
