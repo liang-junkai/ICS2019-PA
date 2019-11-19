@@ -35,17 +35,24 @@ union{
 };
   vaddr_t pc;
   struct{
-	rtlreg_t CF:1;
-	unsigned:5;
-	rtlreg_t ZF:1;
-	rtlreg_t SF:1;
-	unsigned:1;
-	rtlreg_t IF:1;
-	unsigned:1;
-	rtlreg_t OF:1;
-	unsigned:20;
-}EFLAGS;
-  
+    union{
+	    rtlreg_t CF:1;
+	    unsigned:5;
+	    rtlreg_t ZF:1;
+	    rtlreg_t SF:1;
+	    unsigned:1;
+	    rtlreg_t IF:1;
+	    unsigned:1;
+	    rtlreg_t OF:1;
+	    unsigned:20;
+  };
+    rtlreg_t value;
+  }EFLAGS;
+  rtlreg_t cs;
+  struct{
+    uint32_t base;
+    uint16_t limit;
+  }idtr; 
 
 } CPU_state;
 
