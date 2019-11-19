@@ -34,8 +34,8 @@ union{
 	};
 };
   vaddr_t pc;
+  union{
   struct{
-    union{
 	    rtlreg_t CF:1;
 	    unsigned:5;
 	    rtlreg_t ZF:1;
@@ -45,9 +45,9 @@ union{
 	    unsigned:1;
 	    rtlreg_t OF:1;
 	    unsigned:20;
-  };
-    rtlreg_t value;
   }EFLAGS;
+  rtlreg_t value;
+  };
   rtlreg_t cs;
   struct{
     uint32_t base;
