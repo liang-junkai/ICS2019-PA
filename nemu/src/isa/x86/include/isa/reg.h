@@ -45,9 +45,9 @@ union{
 	    unsigned:1;
 	    rtlreg_t OF:1;
 	    unsigned:20;
-  }EFLAGS;
-  rtlreg_t value;
   };
+  rtlreg_t value;
+  }EFLAGS;
   rtlreg_t cs;
   struct{
     uint32_t base;
