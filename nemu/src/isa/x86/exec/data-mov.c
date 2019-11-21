@@ -35,8 +35,15 @@ make_EHelper(pusha) {
 }
 
 make_EHelper(popa) {
-  TODO();
-
+  //TODO();
+  rtl_pop(&reg_l(R_EDI));
+  rtl_pop(&reg_l(R_ESI));
+  rtl_pop(&reg_l(R_EBP));
+  rtl_pop(&t0);
+  rtl_pop(&reg_l(R_EBX));
+  rtl_pop(&reg_l(R_EDX));
+  rtl_pop(&reg_l(R_ECX));
+  rtl_pop(&reg_l(R_EAX));
   print_asm("popa");
 }
 
