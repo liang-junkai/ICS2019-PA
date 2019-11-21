@@ -40,7 +40,7 @@ make_EHelper(iret) {
   rtl_pop(&decinfo.jmp_pc);
   //printf("%x\n",decinfo.jmp_pc);
   rtl_pop(&cpu.cs);
-  //decinfo.is_jmp=1;
+  decinfo.is_jmp=1;
   rtl_pop(&cpu.EFLAGS.value);
   print_asm("iret");
 }
