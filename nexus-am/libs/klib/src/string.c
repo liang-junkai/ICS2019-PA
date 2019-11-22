@@ -65,10 +65,11 @@ void* memset(void* v,int c,size_t n) {
 }
 
 void* memcpy(void* out, const void* in, size_t n) {
-     if(!(out && in)) return 0;
+  assert(0);
+     /*if(!(out && in)) return 0;
    char * pchdst = (char*)out;
    char * pchsrc = (char*)in;
-   while(n--) *pchdst++ = *pchsrc++;
+   while(n--) *pchdst++ = *pchsrc++;*/
    
    return out;
 }
