@@ -66,13 +66,14 @@ void* memset(void* v,int c,size_t n) {
 
 void* memcpy(void* out, const void* in, size_t n) {
    if(!(out && in)) return 0;
+   void *out0=out;
    while(n){ 
      *(char *)out=*(char *)in;
      out++;
      in++;
      n--;
    }
-   return out;
+   return out0;
 }
 
 int memcmp(const void* s1, const void* s2, size_t n){
