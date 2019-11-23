@@ -2,7 +2,6 @@
 #include "syscall.h"
 static inline uintptr_t sys_yield(_Context *c){
   _yield();
-  printf("you have exit event_yield\n");
   c->GPRx=0;
   return 1;
 }
