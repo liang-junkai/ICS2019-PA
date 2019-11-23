@@ -30,6 +30,7 @@ void raise_intr(uint32_t NO, vaddr_t ret_addr);
 make_EHelper(int) {
   //TODO();
   printf("decinfo.seq_pc: %x\n",decinfo.seq_pc);
+  printf("cpu.pc: %x\n",cpu.pc);
   raise_intr(id_dest->val,decinfo.seq_pc);
   print_asm("int %s", id_dest->str);
 
