@@ -11,6 +11,7 @@ void __am_vecnull();
 //extern int printf(const char *fmt,...);
 _Context* __am_irq_handle(_Context *c) {
   _Context *next = c;
+  printf("c->irq: %d\n",c->irq);
   if (user_handler) {
     _Event ev = {0};
     switch (c->irq) {
