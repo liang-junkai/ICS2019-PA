@@ -9,6 +9,7 @@ void sys_exit(_Context *c){
   printf("gp2: %d\n",c->GPR2);
   _halt(temp);
 }
+_Context* __am_irq_handle(_Context *c);
 _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
@@ -20,6 +21,6 @@ _Context* do_syscall(_Context *c) {
     case SYS_yield: sys_yield(c);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
-
-  return NULL;
+  _Context *next=__am_irq_handle(c);
+  return next;
 }
