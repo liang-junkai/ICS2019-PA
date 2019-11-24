@@ -6,6 +6,7 @@ void sys_yield(_Context *c){
 }
 void sys_exit(_Context *c){
   int temp=c->GPR2;
+  printf("gp2: %d\n",c->GPR2);
   _halt(temp);
 }
 _Context* do_syscall(_Context *c) {
