@@ -1,9 +1,12 @@
 #include "common.h"
 #include "syscall.h"
-static inline uintptr_t sys_yield(_Context *c){
+void sys_yield(_Context *c){
   _yield();
   c->GPRx=0;
-  return 1;
+}
+void sys_exit(_Context *c){
+  int temp=c->GPR2;
+  _halt(temp);
 }
 _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
@@ -12,6 +15,7 @@ _Context* do_syscall(_Context *c) {
   a[2] = c->GPR3;
   a[3] = c->GPR4;
   switch (a[0]) {
+    case SYS_exit: sys_exit(c);break;
     case SYS_yield: sys_yield(c);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
