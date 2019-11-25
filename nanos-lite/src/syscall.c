@@ -17,7 +17,7 @@ void sys_write(_Context *c,uintptr_t fd,uintptr_t buf,uintptr_t len){
     for(int i=0;i<len;i++){
       _putc(*temp++);
     }
-    c->GPRx=1;
+    c->GPRx=len;
     return;
   }
   c->GPRx=-1;
@@ -41,6 +41,6 @@ _Context* do_syscall(_Context *c) {
     //case SYS_execve: sys_execve(c);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
-  _Context *next=__am_irq_handle(c);
-  return next;
+  //_Context *next=__am_irq_handle(c);
+  return NULL;
 }
