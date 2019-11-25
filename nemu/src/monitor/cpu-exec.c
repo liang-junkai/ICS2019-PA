@@ -50,8 +50,8 @@ void cpu_exec(uint64_t n) {
 #endif
 
 #ifdef DEBUG
-  printf("g_nr_guest_instr: %ld\n",g_nr_guest_instr);
-  if (g_nr_guest_instr < LOG_MAX) {
+  //printf("g_nr_guest_instr: %ld\n",g_nr_guest_instr);
+  if (g_nr_guest_instr < 0x0111111111111111) {
     asm_print(ori_pc, seq_pc - ori_pc, n < MAX_INSTR_TO_PRINT);
   }
   else if (g_nr_guest_instr == LOG_MAX) {
