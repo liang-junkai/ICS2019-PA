@@ -17,7 +17,7 @@ void sys_write(_Context *c,uintptr_t fd,uintptr_t buf,uintptr_t len){
     for(int i=0;i<len;i++){
       _putc(*temp++);
     }
-    c->GPRx=len;
+    c->GPRx=1;
     return;
   }
   c->GPRx=-1;
