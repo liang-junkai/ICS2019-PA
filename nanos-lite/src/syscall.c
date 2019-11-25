@@ -9,8 +9,8 @@ void sys_exit(_Context *c){
   //printf("gp2: %d\n",c->GPR2);
   _halt(temp);
 }
-void sys_write(uintptr_t fd,uintptr_t buf,uintptr_t len){
-  //c->GPRx=fs_wri
+void sys_write(_Context *c,uintptr_t fd,uintptr_t buf,uintptr_t len){
+  //c->GPRx=fs_write(fd,(void *)buf,len);
 }
 _Context* __am_irq_handle(_Context *c);
 _Context* do_syscall(_Context *c) {
@@ -27,6 +27,5 @@ _Context* do_syscall(_Context *c) {
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
   _Context *next=__am_irq_handle(c);
-  return NULL;
   return next;
 }
