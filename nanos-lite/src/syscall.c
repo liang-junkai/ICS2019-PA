@@ -1,5 +1,6 @@
 #include "common.h"
 #include "syscall.h"
+//#include<unistd.h>
 void sys_yield(_Context *c){
   _yield();
   c->GPRx=0;
@@ -10,8 +11,15 @@ void sys_exit(_Context *c){
   _halt(temp);
 }
 void sys_write(_Context *c,uintptr_t fd,uintptr_t buf,uintptr_t len){
-  //c->GPRx=fs_write(fd,(void *)buf,len);
-  c->GPRx=0;
+  if(fd==1||fd==2){
+    char *temp=(char*)buf;
+    for(int i=0;i<len;i++){
+      _putc(*temp++);
+    }
+    c->GPRx=len;
+    return;
+  }
+  c->GPRx=-1;
 }
 _Context* __am_irq_handle(_Context *c);
 _Context* do_syscall(_Context *c) {
