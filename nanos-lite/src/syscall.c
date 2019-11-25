@@ -11,6 +11,7 @@ void sys_exit(_Context *c){
 }
 void sys_write(_Context *c,uintptr_t fd,uintptr_t buf,uintptr_t len){
   //c->GPRx=fs_write(fd,(void *)buf,len);
+  c->GPRx=0;
 }
 _Context* __am_irq_handle(_Context *c);
 _Context* do_syscall(_Context *c) {
@@ -19,7 +20,7 @@ _Context* do_syscall(_Context *c) {
   a[1] = c->GPR2;
   a[2] = c->GPR3;
   a[3] = c->GPR4;
-  //printf("a[0]: %d\n",a[0]);
+  printf("a[0]: %d\n",a[0],a[1],a[2],a[3]);
   switch (a[0]) {
     case SYS_exit: sys_exit(c);break;
     case SYS_yield: sys_yield(c);break;
