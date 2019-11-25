@@ -19,7 +19,7 @@ void sys_write(_Context *c,uintptr_t fd,uintptr_t buf,uintptr_t len){
     c->GPRx=len;
     return;
   }
-  c->GPRx=0;
+  c->GPRx=-1;
 }
 _Context* __am_irq_handle(_Context *c);
 _Context* do_syscall(_Context *c) {
