@@ -50,6 +50,7 @@ void cpu_exec(uint64_t n) {
 #endif
 
 #ifdef DEBUG
+  printf("g_nr_guest_instr: %ld\n",g_nr_guest_instr);
   if (g_nr_guest_instr < LOG_MAX) {
     asm_print(ori_pc, seq_pc - ori_pc, n < MAX_INSTR_TO_PRINT);
   }
