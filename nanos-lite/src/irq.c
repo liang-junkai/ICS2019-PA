@@ -7,7 +7,7 @@ static _Context* do_event(_Event e, _Context* c) {
     case _EVENT_YIELD: printf("you have reached _EVENT_YIELD\n");break;
     default: panic("Unhandled event ID = %d", e.event);
   }
-  printf("do_event c:%d\n",c->GPRx);
+  //printf("do_event c:%d\n",c->GPRx);
   //printf("you have exit do_event\n");
   return NULL;
 }

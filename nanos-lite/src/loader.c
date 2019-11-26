@@ -23,7 +23,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   //lseek(fp,elf_e.e_shoff,SEEK_SET);
   //fread(elf_p,sizeof(struct Elf_Phdr),1,fp);
   ramdisk_read((void *)DEFAULT_ENTRY,0,get_ramdisk_size());
-  printf("ramdisksize: %x\n",get_ramdisk_size());
+  //printf("ramdisksize: %x\n",get_ramdisk_size());
   //printf("elf.entry: %d\n",elf_e->e_entry);
   //return (uintptr_t)(DEFAULT_ENTRY+0x10fc);
   return (DEFAULT_ENTRY+0x1040);
