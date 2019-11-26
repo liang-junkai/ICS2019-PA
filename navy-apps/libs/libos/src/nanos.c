@@ -47,6 +47,7 @@ intptr_t _syscall_(intptr_t type, intptr_t a0, intptr_t a1, intptr_t a2) {
   //printf("enter syscall\n");
   asm volatile (SYSCALL : "=r" (ret) : "r"(_gpr1), "r"(_gpr2), "r"(_gpr3), "r"(_gpr4));
   //printf("exit syscall\n");
+  printf("ret: %d",ret);
   return ret;
 }
 
