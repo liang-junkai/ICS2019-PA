@@ -26,7 +26,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   printf("ramdisksize: %x\n",get_ramdisk_size());
   //printf("elf.entry: %d\n",elf_e->e_entry);
   //return (uintptr_t)(DEFAULT_ENTRY+0x10fc);
-  return (DEFAULT_ENTRY+0x105c);
+  return (DEFAULT_ENTRY+0x1040);
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
