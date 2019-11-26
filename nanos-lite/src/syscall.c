@@ -29,7 +29,7 @@ void sys_execve(_Context *c){
 _Context* __am_irq_handle(_Context *c);
 _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
-  a[0] = c->GPR2;
+  a[0] = c->GPR1;
   a[1] = c->GPR3;
   a[2] = c->GPR4;
   a[3] = c->GPRx;
