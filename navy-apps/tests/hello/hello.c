@@ -5,6 +5,7 @@ int main() {
   write(1, "Hello World!\n", 13);
   int i = 2;
   volatile int j = 0;
+  write(1,"hello world!\n",13);
   //write(1,"hello ljk\n",10);
   while (1) {
     j ++;
