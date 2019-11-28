@@ -12,7 +12,7 @@ void sys_exit(_Context *c){
   _halt(temp);
 }
 void sys_write(_Context *c,uintptr_t fd,uintptr_t buf,uintptr_t len){
-  //printf("write\n");
+  printf("write\n");
   if(fd==1||fd==2){
     char *temp=(char*)buf;
     for(int i=0;i<len;i++){
