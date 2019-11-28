@@ -22,11 +22,23 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   //Elf_Phdr elf_p;
   //lseek(fp,elf_e.e_shoff,SEEK_SET);
   //fread(elf_p,sizeof(struct Elf_Phdr),1,fp);
-  ramdisk_read((void *)DEFAULT_ENTRY,0,get_ramdisk_size());
+  //ramdisk_read((void *)DEFAULT_ENTRY,0,get_ramdisk_size());
   //printf("ramdisksize: %x\n",get_ramdisk_size());
   //printf("elf.entry: %d\n",elf_e->e_entry);
   //return (uintptr_t)(DEFAULT_ENTRY+0x10fc);
-  return (DEFAULT_ENTRY+0x10d8);
+  Elf_Ehdr ehdr;
+  ramdisk_read(&ehdr,0,sizeof(Elf_Ehdr));
+  int n=ehdr.e_phnum;
+  Elf_Phdr phdr;
+  for(int i=0;i<n;i++){
+    ramdisk_read(&phdr,ehdr.e_phoff+sizeof(Elf_Phdr)*i,sizeof(Elf_Phdr));
+    if(phdr.p_type==PT_LOAD){
+      ramdisk_read((void*)phdr.p_vaddr,phdr.p_offset,phdr.p_memsz);
+      memset((void*)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz-phdr.p_filesz);
+    }
+  }
+  //return (DEFAULT_ENTRY+0x10d8);
+  return ehdr.e_entry;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
