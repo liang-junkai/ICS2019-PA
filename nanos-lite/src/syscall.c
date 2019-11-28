@@ -27,6 +27,9 @@ void naive_uload(PCB *pcb, const char *filename);
 void sys_execve(_Context *c){
   naive_uload(NULL,(char *)c->GPR2);
 }
+void sys_brk(_Context*c){
+  c->GPRx=0;
+}
 _Context* __am_irq_handle(_Context *c);
 _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
@@ -39,6 +42,7 @@ _Context* do_syscall(_Context *c) {
     case SYS_exit: sys_exit(c);break;
     case SYS_yield: sys_yield(c);break;
     case SYS_write: sys_write(c,c->GPR2,c->GPR3,c->GPR4);break;
+    case SYS_brk:sys_brk(c);break;
     //case SYS_execve: sys_execve(c);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
