@@ -36,10 +36,10 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   //ramdisk_read(&ehdr,0,sizeof(Elf_Ehdr));
   size_t fd=fs_open(filename,0,0);
   //printf("fd: %d\n",fd);
-  size_t size=fs_read2(fd,&ehdr,sizeof(Elf_Ehdr));
+  size_t size=fs_read(fd,&ehdr,sizeof(Elf_Ehdr));
   size++;
   int n=ehdr.e_phnum;
-  printf("%x\n",n);
+  //printf("%x\n",n);
   Elf_Phdr phdr;
   for(int i=0;i<n;i++){
     ramdisk_read(&phdr,ehdr.e_phoff+sizeof(Elf_Phdr)*i+fs_diskset(fd),sizeof(Elf_Phdr));
