@@ -47,7 +47,8 @@ size_t fs_open(const char* pathname,int flags,int mode){
       break;
     }
   }
-  //assert(i<NR_FILES);
+  assert(i<NR_FILES);
+  printf("open\n");
   file_table[i].open_offset=0;
   return i;
 }
