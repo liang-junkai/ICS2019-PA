@@ -42,6 +42,10 @@ size_t fs_lseek(int fd,size_t offset,int whence);
 void sys_lseek(_Context*c){
   c->GPRx=fs_lseek(c->GPR2,c->GPR3,c->GPR4);
 }
+size_t fs_read(int fd,void *buf,size_t len);
+void sys_read(_Context*c){
+  c->GPRx=fs_read(c->GPR2,(void*)c->GPR3,c->GPR4);
+}
 _Context* __am_irq_handle(_Context *c);
 _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
@@ -58,6 +62,7 @@ _Context* do_syscall(_Context *c) {
     case SYS_close: sys_close(c);break;
     case SYS_lseek: sys_lseek(c);break;
     case SYS_brk:sys_brk(c);break;
+    case SYS_read: sys_read(c);break;
     //case SYS_execve: sys_execve(c);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
