@@ -14,6 +14,7 @@ size_t ramdisk_read(void *buf, size_t offset, size_t len);
 size_t get_ramdisk_size();
 size_t fs_read(int fd,void *buf,size_t len);
 size_t fs_openset(int fd);
+size_t fs_diskset(int fd);
 size_t fs_open(const char* pathname,int flags,int mode);
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
@@ -32,15 +33,14 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Ehdr ehdr;
   //ramdisk_read(&ehdr,0,sizeof(Elf_Ehdr));
   size_t fd=fs_open(filename,0,0);
-  printf("openset: %d\n",fs_openset(fd));
   size_t size=fs_read(fd,&ehdr,sizeof(Elf_Ehdr));
   size++;
   int n=ehdr.e_phnum;
   Elf_Phdr phdr;
   for(int i=0;i<n;i++){
-    ramdisk_read(&phdr,ehdr.e_phoff+sizeof(Elf_Phdr)*i,sizeof(Elf_Phdr));
+    ramdisk_read(&phdr,ehdr.e_phoff+sizeof(Elf_Phdr)*i+fs_diskset(fd),sizeof(Elf_Phdr));
     if(phdr.p_type==PT_LOAD){
-      ramdisk_read((void*)phdr.p_vaddr,phdr.p_offset,phdr.p_memsz);
+      ramdisk_read((void*)phdr.p_vaddr,phdr.p_offset+fs_diskset(fd),phdr.p_memsz);
       memset((void*)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz-phdr.p_filesz);
     }
   }

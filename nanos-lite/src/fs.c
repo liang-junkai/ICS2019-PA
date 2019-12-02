@@ -75,3 +75,6 @@ size_t fs_lseek(int fd,size_t offset,int whence){
 size_t fs_openset(int fd){
   return file_table[fd].open_offset;
 }
+size_t fs_diskset(int fd){
+  return file_table[fd].disk_offset;
+}
