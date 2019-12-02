@@ -3,6 +3,7 @@
 #include<unistd.h>
 
 int main() {
+  printf("ljk\n");
   FILE *fp = fopen("/share/texts/num", "r+");
   printf("0\n");
   assert(fp);
