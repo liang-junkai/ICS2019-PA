@@ -12,6 +12,8 @@
 #define DEFAULT_ENTRY 0x3000000
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
 size_t get_ramdisk_size();
+size_t fs_read(int fd,void *buf,size_t len);
+size_t fs_open(const char* pathname,int flags,int mode);
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
   //FILE *fp=fopen(filename,"rb");
@@ -27,7 +29,10 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   //printf("elf.entry: %d\n",elf_e->e_entry);
   //return (uintptr_t)(DEFAULT_ENTRY+0x10fc);
   Elf_Ehdr ehdr;
-  ramdisk_read(&ehdr,0,sizeof(Elf_Ehdr));
+  //ramdisk_read(&ehdr,0,sizeof(Elf_Ehdr));
+  size_t num=fs_open(filename,0,0);
+  size_t size=fs_read(num,&ehdr,sizeof(Elf_Ehdr));
+  size++;
   int n=ehdr.e_phnum;
   Elf_Phdr phdr;
   for(int i=0;i<n;i++){

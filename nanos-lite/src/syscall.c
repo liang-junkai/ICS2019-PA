@@ -41,8 +41,8 @@ _Context* do_syscall(_Context *c) {
   switch (a[0]) {
     case SYS_exit: sys_exit(c);break;
     case SYS_yield: sys_yield(c);break;
-    //case SYS_write: sys_write(c,c->GPR2,c->GPR3,c->GPR4);break;
-    //case SYS_brk:sys_brk(c);break;
+    case SYS_write: sys_write(c,c->GPR2,c->GPR3,c->GPR4);break;
+    case SYS_brk:sys_brk(c);break;
     //case SYS_execve: sys_execve(c);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
