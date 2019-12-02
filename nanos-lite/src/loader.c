@@ -34,6 +34,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Ehdr ehdr;
   //ramdisk_read(&ehdr,0,sizeof(Elf_Ehdr));
   size_t fd=fs_open(filename,0,0);
+  printf("fd: %d\n",fd);
   size_t size=fs_read(fd,&ehdr,sizeof(Elf_Ehdr));
   size++;
   int n=ehdr.e_phnum;
