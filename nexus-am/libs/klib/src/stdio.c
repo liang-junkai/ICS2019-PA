@@ -914,9 +914,6 @@ int printf(const char *fmt,...){
 
 
 
-
-
-
 int sprintf(char *buf, const char *fmt, ...)
 {
     va_list args;
@@ -927,5 +924,17 @@ int sprintf(char *buf, const char *fmt, ...)
     va_end(args);
 
     return n;
+}
+int snprintf(char *out, size_t n, const char *fmt, ...) {
+    va_list ap;
+    //char *buf;
+    va_start(ap,fmt);
+    size_t result=vsprintf(out,fmt,ap);
+    if(result>n){
+        out[n]='\0';
+    }
+    va_end(ap);
+    if(result>n)return n;
+    return result;
 }
 #endif
