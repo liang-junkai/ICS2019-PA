@@ -40,6 +40,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Phdr phdr;
   for(int i=0;i<n;i++){
     ramdisk_read(&phdr,ehdr.e_phoff+sizeof(Elf_Phdr)*i+fs_diskset(fd),sizeof(Elf_Phdr));
+    printf("%d\n",i);
     if(phdr.p_type==PT_LOAD){
       ramdisk_read((void*)phdr.p_vaddr,phdr.p_offset+fs_diskset(fd),phdr.p_memsz);
       memset((void*)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz-phdr.p_filesz);
