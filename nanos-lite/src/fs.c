@@ -1,6 +1,7 @@
 #include "fs.h"
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
 size_t get_ramdisk_size();
+size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 typedef size_t (*ReadFn) (void *buf, size_t offset, size_t len);
 typedef size_t (*WriteFn) (const void *buf, size_t offset, size_t len);
 
@@ -67,10 +68,34 @@ size_t fs_close(int fd){
   return 0;
 }
 size_t fs_write(int fd,const void *buf,size_t len){
-  return 0;
+  WriteFn write = file_table[fd].write == NULL ? (WriteFn) ramdisk_write : file_table[fd].write;
+  if (file_table[fd].open_offset + len > file_table[fd].size) {
+    len = file_table[fd].size - file_table[fd].open_offset;
+  }
+  int ret = write(buf, file_table[fd].open_offset + file_table[fd].disk_offset, len);
+  file_table[fd].open_offset += len;
+  return ret;
 }
 size_t fs_lseek(int fd,size_t offset,int whence){
-  return 0;
+  size_t old_offset=file_table[fd].open_offset;
+  switch(whence){
+      case SEEK_SET:
+          file_table[fd].open_offset=offset;
+          break;
+      case SEEK_CUR:
+          file_table[fd].open_offset+=offset;
+          break;
+      case SEEK_END:
+          file_table[fd].open_offset=fs_filesz(fd)-offset;
+          break;
+      default:
+          assert(0);
+    }
+  if(file_table[fd].open_offset>file_table[fd].size){
+      file_table[fd].open_offset=old_offset;
+      return -1;
+  }
+  return file_table[fd].open_offset;
 }
 size_t fs_openset(int fd){
   return file_table[fd].open_offset;

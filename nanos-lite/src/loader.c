@@ -16,6 +16,7 @@ size_t fs_read(int fd,void *buf,size_t len);
 size_t fs_openset(int fd);
 size_t fs_diskset(int fd);
 size_t fs_open(const char* pathname,int flags,int mode);
+size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
   //FILE *fp=fopen(filename,"rb");
