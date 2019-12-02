@@ -106,3 +106,12 @@ size_t fs_openset(int fd){
 size_t fs_diskset(int fd){
   return file_table[fd].disk_offset;
 }
+size_t fs_read2(int fd,void *buf,size_t len){
+  ReadFn read = ramdisk_read;
+    if (file_table[fd].open_offset + len > file_table[fd].size) {
+        len = file_table[fd].size- file_table[fd].open_offset;
+    }
+    int ret = read(buf, file_table[fd].open_offset + file_table[fd].disk_offset, len);
+    file_table[fd].open_offset += len;
+    return ret;
+}
