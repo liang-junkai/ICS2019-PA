@@ -11,6 +11,8 @@ void sys_exit(_Context *c){
   //printf("gp2: %d\n",c->GPR2);
   _halt(temp);
 }
+size_t fs_read(int fd,void *buf,size_t len);
+size_t fs_write(int fd,const void *buf,size_t len);
 void sys_write(_Context *c,uintptr_t fd,uintptr_t buf,uintptr_t len){
   //printf("write\n");
   if(fd==1||fd==2){
@@ -21,7 +23,7 @@ void sys_write(_Context *c,uintptr_t fd,uintptr_t buf,uintptr_t len){
     c->GPRx=len;
     return;
   }
-  c->GPRx=-1;
+  c->GPRx=fs_write(c->GPR2,(void*)c->GPR3,c->GPR4);
 }
 void naive_uload(PCB *pcb, const char *filename);
 void sys_execve(_Context *c){
