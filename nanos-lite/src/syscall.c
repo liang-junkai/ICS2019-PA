@@ -1,6 +1,7 @@
 #include "common.h"
 #include "syscall.h"
 #include"proc.h"
+#include<assert.h>
 //#include<unistd.h>
 void sys_yield(_Context *c){
   _yield();
@@ -46,7 +47,7 @@ void sys_lseek(_Context*c){
 }
 size_t fs_read(int fd,void *buf,size_t len);
 void sys_read(_Context*c){
-  assert(c->GPR4==0);
+  if(c->GPR4==0)printf("ljkljlkljkl\n");
   c->GPRx=fs_read(c->GPR2,(void*)c->GPR3,c->GPR4);
 }
 _Context* __am_irq_handle(_Context *c);
