@@ -16,7 +16,7 @@ int read_key() {
   _io_read(_DEV_INPUT, _DEVREG_INPUT_KBD, &key, sizeof(_DEV_INPUT_KBD_t));
   int ret = key.keycode;
   if (key.keydown) ret |= 0x8000;
-  printf("read_key: %d\n",ret);
+  //printf("read_key: %d\n",ret);
   return ret;
 }
 
