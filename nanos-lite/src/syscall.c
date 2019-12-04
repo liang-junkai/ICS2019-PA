@@ -46,7 +46,7 @@ void sys_lseek(_Context*c){
 }
 size_t fs_read(int fd,void *buf,size_t len);
 void sys_read(_Context*c){
-  printf("%d\n",c->GPR4);
+  assert(c->GPR4==0);
   c->GPRx=fs_read(c->GPR2,(void*)c->GPR3,c->GPR4);
 }
 _Context* __am_irq_handle(_Context *c);
