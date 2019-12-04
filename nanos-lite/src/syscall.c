@@ -23,7 +23,7 @@ void sys_write(_Context *c,uintptr_t fd,uintptr_t buf,uintptr_t len){
     c->GPRx=len;
     return;
   }*/
-  c->GPRx=fs_write(c->GPR2,(void*)c->GPR3,c->GPR4);
+  c->GPRx=fs_write(fd,(void*)buf,len);
 }
 void naive_uload(PCB *pcb, const char *filename);
 void sys_execve(_Context *c){
