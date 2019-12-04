@@ -32,7 +32,7 @@ static Finfo file_table[] __attribute__((used)) = {
   {"stdin", -1, 0, invalid_read, invalid_write,0},
   {"stdout", -1, 0, invalid_read, serial_write,0},
   {"stderr", -1, 0, invalid_read, serial_write,0},
-  {"/dev/events",0,0,events_read,invalid_write,0},
+  {"/dev/events",128,0,events_read,invalid_write,0},
 #include "files.h"
 };
 
@@ -58,7 +58,7 @@ size_t fs_open(const char* pathname,int flags,int mode){
 size_t fs_read(int fd,void *buf,size_t len){
   if(len==0)printf("fs_read: 000000000\n");
   ReadFn read = file_table[fd].read == NULL ? (ReadFn)ramdisk_read : file_table[fd].read;
-  if(read==events_read)printf("hit\n");
+  //if(read==events_read)printf("hit\n");
     if (file_table[fd].open_offset + len > file_table[fd].size) {
         len = file_table[fd].size- file_table[fd].open_offset;
     }
