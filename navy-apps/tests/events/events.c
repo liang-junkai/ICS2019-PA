@@ -16,6 +16,7 @@ int main() {
     }
 
     int is_time = buf[0] == 't';
+    if(buf[0]=='\0')printf("empty\n");
     time += is_time;
     if (!is_time) {
       printf("receive event: %s\n", buf);
