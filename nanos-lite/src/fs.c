@@ -29,7 +29,7 @@ size_t events_read(void *buf, size_t offset, size_t len);
 size_t serial_write(const void *buf, size_t offset, size_t len);
 /* This is the information about all files in disk. */
 static Finfo file_table[] __attribute__((used)) = {
-  {"stdin", 0, 0, invalid_read, invalid_write,0},
+  {"stdin", -1, 0, invalid_read, invalid_write,0},
   {"stdout", -1, 0, invalid_read, serial_write,0},
   {"stderr", -1, 0, invalid_read, serial_write,0},
   {"/dev/events",0,0,events_read,invalid_write,0},
