@@ -20,10 +20,10 @@ int main() {
   //init_device();
 
 #ifdef HAS_CTE
-  //init_irq();
+  init_irq();
 #endif
 
-  //init_fs();
+  init_fs();
 
   init_proc();
 
