@@ -23,10 +23,10 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   //printf("%d\n",len);
   //return sprintf(buf,"t %d\n",uptime());
   if(key==0){
-    return snprintf(buf,len, "t %d\n",uptime());
+    return sprintf(buf,"t %d\n",uptime());
   }else{
-    printf("hit\n");
-    return snprintf(buf,len, "k%c %s\n",key&0x8000?'u':'d',keyname[key&0x7fff]);
+    //printf("hit\n");
+    return sprintf(buf,"k%c %s\n",key&0x8000?'u':'d',keyname[key&0x7fff]);
   }
 }
 
