@@ -24,6 +24,7 @@ void sys_write(_Context *c,uintptr_t fd,uintptr_t buf,uintptr_t len){
     c->GPRx=len;
     return;
   }*/
+  if(len==0)printf("write: 00000000\n");
   c->GPRx=fs_write(fd,(void*)buf,len);
 }
 void naive_uload(PCB *pcb, const char *filename);
