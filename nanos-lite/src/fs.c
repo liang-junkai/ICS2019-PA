@@ -68,7 +68,7 @@ size_t fs_open(const char* pathname,int flags,int mode){
 
 size_t fs_read(int fd,void *buf,size_t len){
   //if(len==0)printf("fs_read: 000000000\n");
-  printf("%d %d\n",fd,len);
+  //printf("%d %d\n",fd,len);
   ReadFn read = file_table[fd].read == NULL ? (ReadFn)ramdisk_read : file_table[fd].read;
   //if(read==events_read)printf("hit\n");
     if (file_table[fd].open_offset + len > file_table[fd].size) {
