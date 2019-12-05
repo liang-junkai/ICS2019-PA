@@ -13,6 +13,14 @@ make_EHelper(movsb){
   cpu.edi+=1;
   cpu.esi+=1;
 }
+make_EHelper(movsl){
+  s0=cpu.esi;
+  s1=cpu.edi;
+  s0=vaddr_read(s0,4);
+  vaddr_write(s1,s0,4);
+  cpu.edi+=4;
+  cpu.esi+=4;
+}
 make_EHelper(push) {
   //TODO();
   rtl_sext(&s0,&id_dest->val,id_dest->width);
