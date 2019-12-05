@@ -5,7 +5,14 @@ make_EHelper(mov) {
   //printf("src: %x\n",id_src->val);
   print_asm_template2(mov);
 }
-
+make_EHelper(movsb){
+  s0=cpu.esi;
+  s1=cpu.edi;
+  s0=vaddr_read(s0,1);
+  vaddr_write(s1,s0,1);
+  cpu.edi+=1;
+  cpu.esi+=1;
+}
 make_EHelper(push) {
   //TODO();
   rtl_sext(&s0,&id_dest->val,id_dest->width);
