@@ -3,14 +3,16 @@
 #include"proc.h"
 #include<assert.h>
 //#include<unistd.h>
+void naive_uload(PCB *pcb, const char *filename);
 void sys_yield(_Context *c){
   _yield();
   c->GPRx=0;
 }
 void sys_exit(_Context *c){
-  int temp=c->GPR2;
+  //int temp=c->GPR2;
   //printf("gp2: %d\n",c->GPR2);
-  _halt(temp);
+  //_halt(temp);
+  naive_uload(NULL,"/bin/init");
 }
 size_t fs_read(int fd,void *buf,size_t len);
 size_t fs_write(int fd,const void *buf,size_t len);
@@ -27,7 +29,7 @@ void sys_write(_Context *c,uintptr_t fd,uintptr_t buf,uintptr_t len){
   if(len==0)printf("write: 00000000\n");
   c->GPRx=fs_write(fd,(void*)buf,len);
 }
-void naive_uload(PCB *pcb, const char *filename);
+
 void sys_execve(_Context *c){
   naive_uload(NULL,(char *)c->GPR2);
 }
@@ -68,6 +70,7 @@ _Context* do_syscall(_Context *c) {
     case SYS_lseek: sys_lseek(c);break;
     case SYS_brk:sys_brk(c);break;
     case SYS_read: sys_read(c);break;
+    case SYS_execve:sys_execve(c);break;
     //case SYS_execve: sys_execve(c);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
