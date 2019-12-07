@@ -9,10 +9,10 @@ void sys_yield(_Context *c){
   c->GPRx=0;
 }
 void sys_exit(_Context *c){
-  //int temp=c->GPR2;
+  int temp=c->GPR2;
   //printf("gp2: %d\n",c->GPR2);
-  //_halt(temp);
-  naive_uload(NULL,"/bin/init");
+  _halt(temp);
+  //naive_uload(NULL,"/bin/init");
 }
 size_t fs_read(int fd,void *buf,size_t len);
 size_t fs_write(int fd,const void *buf,size_t len);
