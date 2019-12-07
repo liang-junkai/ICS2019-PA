@@ -61,7 +61,7 @@ _Context* do_syscall(_Context *c) {
   a[1] = c->GPR2;
   a[2] = c->GPR3;
   a[3] = c->GPR4;
-  //printf("GPR1: %x GPR2: %x GPR3: 0x%x GPR4: %x GPRx: %x\n",c->GPR1,c->GPR2,c->GPR3,c->GPR4,c->GPRx);
+  printf("GPR1: %x GPR2: %x GPR3: 0x%x GPR4: %x GPRx: %x\n",c->GPR1,c->GPR2,c->GPR3,c->GPR4,c->GPRx);
   switch (a[0]) {
     case SYS_exit: sys_exit(c);break;
     case SYS_yield: sys_yield(c);break;
