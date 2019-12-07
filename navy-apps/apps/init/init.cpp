@@ -127,7 +127,7 @@ static void open_display() {
     fprintf(stderr, "[IGN] Cannot open /proc/dispinfo.\n");
     return;
   }
-
+  printf("%s\n",dispinfo);
   char buf[128], key[128], value[128], *delim;
   while (fgets(buf, 128, dispinfo)) {
     *(delim = strchr(buf, ':')) = '\0';
