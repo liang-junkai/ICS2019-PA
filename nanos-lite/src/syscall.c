@@ -72,8 +72,7 @@ _Context* do_syscall(_Context *c) {
     case SYS_lseek: sys_lseek(c);break;
     case SYS_brk:sys_brk(c);break;
     case SYS_read: sys_read(c);break;
-    //case SYS_execve:sys_execve(c);break;
-    //case SYS_execve: sys_execve(c);break;
+    case SYS_execve: sys_execve(c);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
   //_Context *next=__am_irq_handle(c);
