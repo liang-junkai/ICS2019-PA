@@ -138,7 +138,7 @@ static void open_display() {
   }
 
   fclose(dispinfo);
-  printf("W:%d H:%d\n",W,H);
+  //printf("W:%d H:%d\n",W,H);
   if (W == 0 || H == 0) {
     fprintf(stderr, "[IGN] Invalid display information.\n");
     return;
