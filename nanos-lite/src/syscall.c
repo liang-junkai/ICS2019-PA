@@ -31,7 +31,8 @@ void sys_write(_Context *c,uintptr_t fd,uintptr_t buf,uintptr_t len){
 }
 
 void sys_execve(_Context *c){
-  naive_uload(NULL,"/bin/hello");
+  printf("%s\n",(char*)c->GPR2);
+  naive_uload(NULL,(char*)c->GPR2);
 }
 void sys_brk(_Context*c){
   c->GPRx=0;
