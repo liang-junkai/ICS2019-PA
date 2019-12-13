@@ -22,6 +22,7 @@ _Context* __am_irq_handle(_Context *c) {
     }
     printf("next:\n");
     next = user_handler(ev, c);
+    printf("handle: eip:0x%d\n",next->eip);
     if (next == NULL) {
       next = c;
     }
