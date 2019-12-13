@@ -5,7 +5,7 @@
 static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
 static PCB pcb_boot = {};
 PCB *current = NULL;
-static int fg_pcb=1;
+//static int fg_pcb=1;
 void switch_boot_pcb() {
   current = &pcb_boot;
 }
@@ -42,7 +42,7 @@ size_t fs_open(const char* pathname,int flags,int mode);
 _Context* schedule(_Context *prev) {
   current->cp=prev;
   current=&pcb[0];
-  static int fd=-1;
+  /*static int fd=-1;
   if(fd==-1){
     fd=fs_open("/dev/events",0,0);
   }
@@ -64,6 +64,6 @@ _Context* schedule(_Context *prev) {
         }
         break;
       }
-    }
+    }*/
     return current->cp;
 }
