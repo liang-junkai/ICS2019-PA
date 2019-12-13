@@ -66,5 +66,6 @@ _Context* schedule(_Context *prev) {
         break;
       }
     }*/
+    printf("cp: 0x%x\n",current->cp);
     return current->cp;
 }
