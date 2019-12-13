@@ -66,6 +66,6 @@ _Context* schedule(_Context *prev) {
         break;
       }
     }*/
-    printf("cp: 0x%x\n",pcb[0].cp->eip);
+    printf("cp: 0x%x\n",current->cp->eip);
     return current->cp;
 }

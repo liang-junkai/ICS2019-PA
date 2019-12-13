@@ -2,6 +2,7 @@
 #include <x86.h>
 //#include<stdio.h>
 #include<klib.h>
+//#include"proc.h"
 static _Context* (*user_handler)(_Event, _Context*) = NULL;
 
 void __am_irq0();
@@ -19,13 +20,14 @@ _Context* __am_irq_handle(_Context *c) {
       case 0x81:ev.event=_EVENT_YIELD;break;
       default: ev.event = _EVENT_ERROR; break;
     }
-
+    printf("next:\n");
     next = user_handler(ev, c);
     if (next == NULL) {
       next = c;
     }
   }
-  printf("handle: eip:0x%d\n",next->eip);
+  //printf("pcb: 0x%x\n",pcb[0].cp->eip);
+  //printf("handle: eip:0x%d\n",next->eip);
   return next;
 }
 
