@@ -24,7 +24,7 @@ void context_uload(PCB *pcb, const char *filename) ;
 void init_proc() {
   //switch_boot_pcb();
 
-  Log("Initializing processes...");
+  //Log("Initializing processes...");
   context_kload(&pcb[0], (void *)hello_fun);
   switch_boot_pcb();
   // load program here
