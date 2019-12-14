@@ -26,7 +26,7 @@ void init_proc() {
 
   //Log("Initializing processes...");
   context_kload(&pcb[0], (void *)hello_fun);
-  printf("hello:%x\n",(unsigned)hello_fun);
+  //printf("hello:%x\n",(unsigned)hello_fun);
   switch_boot_pcb();
   // load program here
   //naive_uload(NULL,"/bin/init");
