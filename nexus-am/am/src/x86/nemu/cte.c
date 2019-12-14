@@ -20,15 +20,15 @@ _Context* __am_irq_handle(_Context *c) {
       case 0x81:ev.event=_EVENT_YIELD;break;
       default: ev.event = _EVENT_ERROR; break;
     }
-    printf("next:\n");
+    //printf("next:\n");
     next = user_handler(ev, c);
-    printf("handle: eip:0x%d\n",next->eip);
+    //printf("handle: eip:0x%d\n",next->eip);
     if (next == NULL) {
       next = c;
     }
   }
   //printf("pcb: 0x%x\n",pcb[0].cp->eip);
-  printf("handle: eip:0x%d\n",next->eip);
+  //printf("handle: eip:0x%d\n",next->eip);
   return next;
 }
 

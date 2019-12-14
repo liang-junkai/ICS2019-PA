@@ -42,7 +42,7 @@ size_t fs_read(int fd,void *buf,size_t len);
 size_t fs_open(const char* pathname,int flags,int mode);
 _Context* schedule(_Context *prev) {
   current->cp=prev;
-  current=&pcb[0];
+  current=current==&pcb[0]? &pcb[1]:&pcb[0];
   /*static int fd=-1;
   if(fd==-1){
     fd=fs_open("/dev/events",0,0);
@@ -66,6 +66,6 @@ _Context* schedule(_Context *prev) {
         break;
       }
     }*/
-    printf("cp: 0x%x\n",current->cp->eip);
+    //printf("cp: 0x%x\n",current->cp->eip);
     return current->cp;
 }
