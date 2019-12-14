@@ -55,7 +55,7 @@ void init_fs() {
 }
 
 size_t fs_open(const char* pathname,int flags,int mode){
-  printf("%s\n", pathname);
+  //printf("%s\n", pathname);
   int i=0;
   for(i=0;i<NR_FILES;++i){
     if(!strcmp(file_table[i].name,pathname)){
@@ -87,6 +87,7 @@ size_t fs_close(int fd){
   return 0;
 }
 size_t fs_write(int fd,const void *buf,size_t len){
+  _yield();
   WriteFn write = file_table[fd].write == NULL ? (WriteFn) ramdisk_write : file_table[fd].write;
   if (file_table[fd].open_offset + len > file_table[fd].size) {
     len = file_table[fd].size - file_table[fd].open_offset;
