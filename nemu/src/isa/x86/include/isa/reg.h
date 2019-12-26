@@ -53,6 +53,14 @@ union{
     uint32_t base;
     uint16_t limit;
   }idtr; 
+  union{
+    uint32_t cr[4];
+    struct{
+      uint32_t CR0;
+      uint32_t :32,:32;
+      uint32_t CR3;
+    };
+  };
 
 } CPU_state;
 

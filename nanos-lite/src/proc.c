@@ -45,29 +45,5 @@ size_t fs_open(const char* pathname,int flags,int mode);
 _Context* schedule(_Context *prev) {
   current->cp=prev;
   current=current==&pcb[0]? &pcb[1]:&pcb[0];
-  /*static int fd=-1;
-  if(fd==-1){
-    fd=fs_open("/dev/events",0,0);
-  }
-  char info[25],con[10]="kd F\0\0";
-  fs_read(fd,info,25);
-  int i;
-  for(i=1;i<5;++i){
-    con[4]='0'+i;//4 for "kd F"
-    if(!strncmp(info,con,5)){
-      switch(i){
-          case 1:case 2:case 3:
-            printf("switch between hello and %s\n",program[i]+5);//+5 for "/bin/"
-            fg_pcb=i;
-            break;
-          case 4:
-            printf("reload pcb[0]\n");
-            context_uload(&pcb[0], program[0]);
-            break;
-        }
-        break;
-      }
-    }*/
-    //printf("cp: 0x%x\n",current->cp->eip);
-    return current->cp;
+  return current->cp;
 }
