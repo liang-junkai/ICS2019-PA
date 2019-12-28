@@ -3,7 +3,16 @@
 static paddr_t page_translate(vaddr_t addr);
 uint32_t isa_vaddr_read(vaddr_t addr, int len) {
   if((addr>>12)!=(addr+len-1)>>12){
-    assert(0);
+    //assert(0);
+    uint8_t bytes[len];
+    for(int i=0;i<len;i++){
+      bytes[i]=isa_vaddr_read(addr+i,1)&0xff;
+    }
+    uint32_t ret=0;
+    for(int i=0;i<len;i++){
+      ret=(ret<<8)|bytes[len-1-i];
+    }
+    return ret;
   }
   else{
     paddr_t paddr=page_translate(addr);
