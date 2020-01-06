@@ -117,6 +117,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     }
   }
   fs_close(fd);
+  printf("0x%x\n",header.e_entry);
   return header.e_entry;
 }
 
