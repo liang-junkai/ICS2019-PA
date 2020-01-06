@@ -33,23 +33,18 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   //printf("elf.entry: %d\n",elf_e->e_entry);
   //return (uintptr_t)(DEFAULT_ENTRY+0x10fc);
   Elf_Ehdr ehdr;
-  //ramdisk_read(&ehdr,0,sizeof(Elf_Ehdr));
   size_t fd=fs_open(filename,0,0);
-  //printf("fd: %d\n",fd);
   size_t size=fs_read(fd,&ehdr,sizeof(Elf_Ehdr));
   size++;
   int n=ehdr.e_phnum;
-  //printf("%x\n",n);
   Elf_Phdr phdr;
   for(int i=0;i<n;i++){
     ramdisk_read(&phdr,ehdr.e_phoff+sizeof(Elf_Phdr)*i+fs_diskset(fd),sizeof(Elf_Phdr));
-    //printf("%d\n",i);
     if(phdr.p_type==PT_LOAD){
       ramdisk_read((void*)phdr.p_vaddr,phdr.p_offset+fs_diskset(fd),phdr.p_memsz);
       memset((void*)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz-phdr.p_filesz);
     }
   }
-  //return (DEFAULT_ENTRY+0x10d8);
   return ehdr.e_entry;
 }
 
