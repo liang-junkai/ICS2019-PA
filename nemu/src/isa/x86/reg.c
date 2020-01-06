@@ -1,7 +1,7 @@
 #include "nemu.h"
 #include <stdlib.h>
 #include <time.h>
-
+#include"isa/mmu.h"
 const char *regsl[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi"};
 const char *regsw[] = {"ax", "cx", "dx", "bx", "sp", "bp", "si", "di"};
 const char *regsb[] = {"al", "cl", "dl", "bl", "ah", "ch", "dh", "bh"};
@@ -56,6 +56,9 @@ void isa_reg_display() {
 		printf("0x%-15x",reg_l(i));
 		printf("%-15d\n",reg_l(i));
 }
+  CR0 cr0;
+  cr0.val=cpu.CR0;
+  printf("CR0_PG:%-15d\n",cr0.paging); 
 }
 
 uint32_t isa_reg_str2val(const char *s, bool *success) {

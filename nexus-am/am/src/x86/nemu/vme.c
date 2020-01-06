@@ -75,7 +75,7 @@ void __am_get_cur_as(_Context *c) {
 
 void __am_switch(_Context *c) {
   if (vme_enable) {
-    printf("0x%x\n",c->as->ptr);
+    //printf("0x%x\n",c->as->ptr);
     set_cr3(c->as->ptr);
     cur_as = c->as;
   }
