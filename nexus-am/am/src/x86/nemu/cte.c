@@ -9,8 +9,11 @@ void __am_irq0();
 void __am_vecsys();
 void __am_vectrap();
 void __am_vecnull();
+void __am_get_cur_as(_Context *c);
+void __am_switch(_Context*c);
 //extern int printf(const char *fmt,...);
 _Context* __am_irq_handle(_Context *c) {
+  __am_get_cur_as(c);
   _Context *next = c;
   //printf("c->eip: %x\n",c->eip);
   if (user_handler) {
@@ -27,6 +30,7 @@ _Context* __am_irq_handle(_Context *c) {
       next = c;
     }
   }
+  __am_switch(next);
   //printf("pcb: 0x%x\n",pcb[0].cp->eip);
   //printf("handle: eip:0x%d\n",next->eip);
   return next;
