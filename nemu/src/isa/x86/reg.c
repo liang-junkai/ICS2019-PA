@@ -58,7 +58,7 @@ void isa_reg_display() {
 }
   CR0 cr0;
   cr0.val=cpu.CR0;
-  printf("CR0_PG:%-15d\n",cr0.paging); 
+  printf("CR0_PG:%-15x%-15d\n",cr0.val,cr0.val); 
 }
 
 uint32_t isa_reg_str2val(const char *s, bool *success) {
