@@ -1,7 +1,8 @@
 #include <am.h>
 #include <x86.h>
 #include <nemu.h>
-
+#include"klib.h"
+//#include<stdio.h>
 #define PG_ALIGN __attribute((aligned(PGSIZE)))
 
 static PDE kpdirs[NR_PDE] PG_ALIGN = {};
@@ -74,6 +75,7 @@ void __am_get_cur_as(_Context *c) {
 
 void __am_switch(_Context *c) {
   if (vme_enable) {
+    printf("0x%x\n",c->as->ptr);
     set_cr3(c->as->ptr);
     cur_as = c->as;
   }

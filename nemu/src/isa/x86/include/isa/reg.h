@@ -61,7 +61,7 @@ union{
       uint32_t CR3;
     };
   };
-
+  bool INTR;
 } CPU_state;
 
 static inline int check_reg_index(int index) {
