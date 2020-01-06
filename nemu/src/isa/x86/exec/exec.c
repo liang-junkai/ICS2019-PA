@@ -56,6 +56,8 @@ make_EHelper(pusha);
 make_EHelper(iret);
 make_EHelper(movsb);
 make_EHelper(movsl);
+make_EHelper(mov_cr2r);
+make_EHelper(mov_r2cr);
 #define make_group(name, item0, item1, item2, item3, item4, item5, item6, item7) \
   static OpcodeEntry concat(opcode_table_, name) [8] = { \
     /* 0x00 */	item0, item1, item2, item3, \
@@ -173,7 +175,7 @@ static OpcodeEntry opcode_table [512] = {
   /* 0x14 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x18 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x1c */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x20 */	IDEX(mov_G2E,mov), EMPTY, IDEX(mov_E2G,mov),EMPTY,
+  /* 0x20 */	IDEX(G2E,mov_cr2r), EMPTY, IDEX(E2G,mov_r2cr),EMPTY,
   /* 0x24 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x28 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x2c */	EMPTY, EMPTY, EMPTY, EMPTY,
