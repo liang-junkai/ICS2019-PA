@@ -32,7 +32,7 @@ _Context* __am_irq_handle(_Context *c) {
   }
   //printf("ljk\n");
   __am_switch(next);
-  printf("ljk\n");
+  //printf("ljk\n");
   //printf("pcb: 0x%x\n",pcb[0].cp->eip);
   //printf("handle: eip:0x%d\n",next->eip);
   return next;
