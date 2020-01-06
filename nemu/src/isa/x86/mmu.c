@@ -50,5 +50,6 @@ static paddr_t page_translate(vaddr_t addr){
     printf("0x%x\n",paddr);
     return paddr;
   }
+  printf("wrong\n");
   return addr;
 }
