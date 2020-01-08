@@ -6,7 +6,7 @@ static _Context* do_event(_Event e, _Context* c) {
   switch (e.event) {
     case _EVENT_SYSCALL: do_syscall(c);break;
     case _EVENT_YIELD: {
-      printf("you have reached _EVENT_YIELD\n");
+      //printf("you have reached _EVENT_YIELD\n");
       _Context *c2=schedule(c);
       //printf("c2: 0x%x\n",c2->eip);
       return c2;
