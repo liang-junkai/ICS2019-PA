@@ -45,8 +45,12 @@ static paddr_t page_translate(vaddr_t addr){
     assert(pde.present);
     paddr_t PTE_addr=(pde.page_frame<<12)|(addr_page<<2);
     pte.val=paddr_read(PTE_addr,4);
-    assert(pte.present);
+    //assert(pte.present);
     paddr_t paddr=(pte.page_frame<<12)|(addr_offset);
+    if(!pte.present){
+      printf("paddr: 0x%x\n",paddr);
+      assert(0);
+    }
     //printf("0x%x\n",paddr);
     return paddr;
   }
