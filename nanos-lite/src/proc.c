@@ -42,10 +42,22 @@ char *program[]={
   "/bin/dummy",//For exit
   "/bin/init"
 };
+extern int fg_pcb;
 size_t fs_read(int fd,void *buf,size_t len);
 size_t fs_open(const char* pathname,int flags,int mode);
 _Context* schedule(_Context *prev) {
-  current->cp=prev;
+  /*current->cp=prev;
   current=current==&pcb[0]? &pcb[1]:&pcb[0];
-  return current->cp;
+  return current->cp;*/
+  static int n = 0;
+  if (n == 0) {
+    current->cp = prev;
+    current = &pcb[0];
+  }
+  else {
+    current->cp = prev;
+    current = &pcb[fg_pcb];
+  }
+return current->cp;
+
 }
