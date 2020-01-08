@@ -60,6 +60,6 @@ _Context* schedule(_Context *prev) {
     fg_pcb=(fg_pcb+1)%4;
     if(fg_pcb==1)fg_pcb++;
   }
-  n=(n+1)%2;
+  n=(n+1)%100;
   return current->cp;
 }
