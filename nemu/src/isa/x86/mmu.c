@@ -48,7 +48,7 @@ static paddr_t page_translate(vaddr_t addr){
     //assert(pte.present);
     paddr_t paddr=(pte.page_frame<<12)|(addr_offset);
     if(!pte.present){
-      printf("paddr: 0x%x\n",paddr);
+      printf("addr: 0x%x\n",addr);
       assert(0);
     }
     //printf("0x%x\n",paddr);
