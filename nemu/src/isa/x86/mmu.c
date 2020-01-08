@@ -46,7 +46,7 @@ static paddr_t page_translate(vaddr_t addr){
     PDE pde;
     PDE pte;
     pde.val=paddr_read(PDE_addr,4);
-    assert(pde.present);
+    //assert(pde.present);
     paddr_t PTE_addr=(pde.page_frame<<12)|(addr_page<<2);
     pte.val=paddr_read(PTE_addr,4);
     //assert(pte.present);
