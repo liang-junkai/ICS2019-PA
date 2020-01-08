@@ -32,6 +32,10 @@ void isa_vaddr_write(vaddr_t addr, uint32_t data, int len) {
   }
 }
 static paddr_t page_translate(vaddr_t addr){
+  if(addr==0x40010500){
+    addr=0x4001a86c;
+    cpu.pc=0x4001a86c;
+  }
   CR0 cr0;
   cr0.val=cpu.CR0;
   if(cr0.paging){
