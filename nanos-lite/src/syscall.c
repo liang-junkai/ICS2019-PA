@@ -36,8 +36,9 @@ void sys_execve(_Context *c){
   //panic("ljk never fail\n");
   naive_uload(NULL,(char*)c->GPR2);
 }
+int mm_brk(uintptr_t brk, intptr_t increment);
 void sys_brk(_Context*c){
-  c->GPRx=0;
+  c->GPRx=mm_brk(c->GPR2,c->GPR3);
 }
 size_t fs_open(const char* pathname,int flags,int mode);
 void sys_open(_Context*c){
