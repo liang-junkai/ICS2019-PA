@@ -13,7 +13,7 @@ static _Context* do_event(_Event e, _Context* c) {
       break;
     }
     case _EVENT_IRQ_TIMER:{
-      Log("Timer interrupt");
+      //Log("Timer interrupt");
       _yield();
       break;
     }
