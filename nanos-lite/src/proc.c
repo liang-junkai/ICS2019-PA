@@ -56,9 +56,9 @@ _Context* schedule(_Context *prev) {
   }
   else {
     current->cp = prev;
-    current = &pcb[fg_pcb];
-    fg_pcb=(fg_pcb+1)%4;
-    if(fg_pcb==0)fg_pcb++;
+    current = &pcb[1];
+    //fg_pcb=(fg_pcb+1)%4;
+    //if(fg_pcb==0)fg_pcb++;
   }
   n=(n+1)%100;
   return current->cp;
