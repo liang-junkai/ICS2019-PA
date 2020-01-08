@@ -12,7 +12,7 @@ void sys_exit(_Context *c){
   //int temp=c->GPR2;
   //printf("gp2: %d\n",c->GPR2);
   //_halt(temp);
-  _halt(c->GPR2);
+  //_halt(c->GPR2);
   naive_uload(NULL,"/bin/init");
 }
 size_t fs_read(int fd,void *buf,size_t len);
