@@ -52,11 +52,11 @@ _Context* schedule(_Context *prev) {
   static int n = 0;
   if (n == 0) {
     current->cp = prev;
-    current = &pcb[0];
+    current = &pcb[1];
   }
   else {
     current->cp = prev;
-    current = &pcb[1];
+    current = &pcb[0];
     //fg_pcb=(fg_pcb+1)%4;
     //if(fg_pcb==0)fg_pcb++;
   }
