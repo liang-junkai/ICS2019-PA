@@ -112,7 +112,7 @@ _Context *_ucontext(_AddressSpace *as, _Area ustack, _Area kstack, void *entry, 
 
   // *(_Context**)(ustack.start)=c;
   c->eip=(uintptr_t)entry;
-  c->edi=0;
+  //c->edi=0;
   c->eflags=(c->eflags|1<<9);
   c->cs=8;//For diff-test
   c->as=as;

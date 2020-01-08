@@ -12,6 +12,10 @@ static _Context* do_event(_Event e, _Context* c) {
       return c2;
       break;
     }
+    case _EVENT_IRQ_TIMER:{
+      Log("Timer interrupt");
+      _yield();
+    }
     default: panic("Unhandled event ID = %d", e.event);
   }
   //printf("do_event c:%d\n",c->GPRx);
