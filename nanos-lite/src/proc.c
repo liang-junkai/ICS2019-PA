@@ -58,6 +58,6 @@ _Context* schedule(_Context *prev) {
     current->cp = prev;
     current = &pcb[fg_pcb];
   }
-return current->cp;
-
+  n=(n+1)%100;
+  return current->cp;
 }
